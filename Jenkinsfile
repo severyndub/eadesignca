@@ -3,6 +3,7 @@
     boolean buildImages = false
     boolean clearImages = true
     boolean cleanAks = false
+    boolean pushImages = false
     def branch = env.GIT_BRANCH?.trim().split('/').last().toLowerCase()
 
 node {
@@ -16,6 +17,7 @@ node {
         buildImages = params.BUILD_IMAGES
         clearImages = params.CLEAR_IMAGES
         cleanAks = params.CLEAN_AKS
+        pushImages = params.PUSH_IMAGES
 
         // Check if the build label is set
         if (buildImages) {
@@ -31,6 +33,7 @@ node {
             buildImages: '${buildImages}'
             clearImages: '${clearImages}'
             cleanAks: '${cleanAks}'
+            pushImages: '${pushImages}'
         """
 
         if(cleanAks) {
@@ -82,12 +85,12 @@ node {
                         buildDockerImage('allthenews3')
                     }
                 }
-                
-                stage("Push Images") {
-                    pushDockerImage('allthenews2')
-                    pushDockerImage('allthenews3')
+                if(pushImages){
+                    stage("Push Images") {
+                        pushDockerImage('allthenews2')
+                        pushDockerImage('allthenews3')
+                    }
                 }
-
                 // stage("Build ASYNC Images") {
                 //     dir('async/allthenews_v2'){
                 //         buildDockerImage('allthenews2')
@@ -102,6 +105,7 @@ node {
         stage('Deploy images to GC K8s'){
             dir('sync/manifest'){
                 // Create deployments
+                sh "gcloud container clusters get-credentials mscdevopsk8s --zone europe-west1-b --project mscdevopscaauto"
                 ///sh "kubectl create deployment_nf.yaml"
                 //sh "kubectl create deployment_wf.yaml"
                 sh "kubectl apply -f deployment_atn2.yaml"
