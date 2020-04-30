@@ -11,18 +11,18 @@ node {
 
     try {
 
-        // env.BUILD_VERSION = "1.0.${env.BUILD_ID}"
-        // env.BUILD_LABEL = 'allthenews'
-        // buildImages = params.BUILD_IMAGES
-        // clearImages = params.CLEAR_IMAGES
-        // cleanAks = params.CLEAN_AKS
+        env.BUILD_VERSION = "1.0.${env.BUILD_ID}"
+        env.BUILD_LABEL = 'allthenews'
+        buildImages = params.BUILD_IMAGES
+        clearImages = params.CLEAR_IMAGES
+        cleanAks = params.CLEAN_AKS
 
-        // // Check if the build label is set
-        // if (buildImages) {
-        //     if (!env.BUILD_LABEL) {
-        //         error("Build label must be specified!: build label: ${env.BUILD_LABEL}")
-        //     }
-        // }
+        // Check if the build label is set
+        if (buildImages) {
+            if (!env.BUILD_LABEL) {
+                error("Build label must be specified!: build label: ${env.BUILD_LABEL}")
+            }
+        }
 
         echo """Parameters:
             branch: '${branch}' 
