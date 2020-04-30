@@ -65,7 +65,6 @@ node {
         }
 
         def pushDockerImage = { imageName ->
-            loginGCDocker()
             sh "chmod +x ${WORKSPACE}/push_images.sh"
             sh "${WORKSPACE}/push_images.sh ${imageName} ${env.BUILD_VERSION}"
             echo "Docker images pushed to repository"
