@@ -29,7 +29,6 @@ node {
             BUILD LABEL: '$env.BUILD_LABEL'
             BUILD VERSION: '$env.BUILD_VERSION'
             buildImages: '${buildImages}'
-            targetEnv: '${targetEnv}'
             clearImages: '${clearImages}'
             cleanAks: '${cleanAks}'
         """
