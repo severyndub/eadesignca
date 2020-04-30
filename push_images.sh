@@ -11,7 +11,7 @@ if [ -z ${tag} ]; then
     exit 1
 fi
 dockerRegName=mscdevopscaauto
-dockerRegistry=eu.gcr.io
+dockerRegistry=eu.gcr.io/mscdevopscaauto
 retryCount=3
 
 tryPushImage(){
