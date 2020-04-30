@@ -50,7 +50,7 @@ node {
         }
 
         def loginGCDocker = {
-            sh "gcloud auth activate-service-account eadesignserviceprincipal@mscdevopscaauto.iam.gserviceaccount.com --key-file=mscdevopscaauto-827d6ac9e9d5.json"
+            //sh "gcloud auth activate-service-account eadesignserviceprincipal@mscdevopscaauto.iam.gserviceaccount.com --key-file=mscdevopscaauto-827d6ac9e9d5.json"
             sh "gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://eu.gcr.io"
             sh "docker login -u oauth2accesstoken -p \"\$(gcloud auth print-access-token)\" https://eu.gcr.io"
         }
@@ -65,6 +65,7 @@ node {
         }
 
         def pushDockerImage = { imageName ->
+            loginGCDocker()
             sh "chmod +x ${WORKSPACE}/push_images.sh"
             sh "${WORKSPACE}/push_images.sh ${imageName} ${env.BUILD_VERSION}"
             echo "Docker images pushed to repository"
