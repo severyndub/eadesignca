@@ -11,7 +11,7 @@ node {
 
     try {
 
-        env.BUILD_VERSION = "1.0.${env.BUILD_ID}"
+        env.BUILD_VERSION = "v1"
         env.BUILD_LABEL = 'allthenews'
         buildImages = params.BUILD_IMAGES
         clearImages = params.CLEAR_IMAGES
@@ -74,7 +74,7 @@ node {
 
         if(!cleanAks){
             if (buildImages) {
-                stage("Build Images") {
+                stage("Build SYNC Images") {
                     dir('sync/allthenews_v2'){
                         buildDockerImage('allthenews2')
                     }
@@ -87,8 +87,31 @@ node {
                     pushDockerImage('allthenews2')
                     pushDockerImage('allthenews3')
                 }
+
+                // stage("Build ASYNC Images") {
+                //     dir('async/allthenews_v2'){
+                //         buildDockerImage('allthenews2')
+                //     }
+                //     dir('sync/allthenews_v3'){
+                //         buildDockerImage('allthenews3')
+                //     }
+                // }
             }
-   
+        }
+
+        stage('Deploy images to GC K8s'){
+            dir('sync/manifest'){
+                // Create deployments
+                sh "kubectl create deployment_nf.yaml"
+                sh "kubectl create deployment_wf.yaml"
+                sh "kubectl create deployment_atn2.yaml"
+                sh "kubectl create deployment_atn3.yaml"
+                // Create services
+                sh "kubectl create service_atn.yaml"
+                sh "kubectl create service_nf.yaml"
+                sh "kubectl create service_wf.yaml"
+            }
+
         }
 
     } catch (e) {
