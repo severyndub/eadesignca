@@ -19,7 +19,6 @@ tryPushImage(){
     tries=${retryCount}
 
     while [ ${tries} -gt 0 ]; do
-        az acr login --name ${dockerRegName}
         echo ${DOCKER} push ${image}
         ${DOCKER} push ${image}
 
