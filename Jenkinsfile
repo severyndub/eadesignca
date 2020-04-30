@@ -1,7 +1,6 @@
 #!groovy
 
     boolean buildImages = false
-    def targetEnv = ""
     boolean clearImages = true
     boolean cleanAks = false
     def branch = env.GIT_BRANCH?.trim().split('/').last().toLowerCase()
@@ -15,11 +14,8 @@ node {
         env.BUILD_VERSION = "1.0.${env.BUILD_ID}"
         env.BUILD_LABEL = 'allthenews'
         buildImages = params.BUILD_IMAGES
-        targetEnv = params.TARGET_ENV?.trim()
         clearImages = params.CLEAR_IMAGES
         cleanAks = params.CLEAN_AKS
-        env.TARGET_ROLE = currentEnvironment
-
 
         // Check if the build label is set
         if (buildImages) {
