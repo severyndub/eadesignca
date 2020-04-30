@@ -103,7 +103,7 @@ node {
         }
 
         stage('Deploy images to GC K8s'){
-            dir('sync/manifest'){
+            dir('sync/manifests'){
                 // Create deployments
                 sh "gcloud container clusters get-credentials mscdevopsk8s --zone europe-west1-b --project mscdevopscaauto"
                 ///sh "kubectl create deployment_nf.yaml"
