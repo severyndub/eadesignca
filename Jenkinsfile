@@ -50,7 +50,8 @@ node {
         }
 
         def loginGCDocker = {
-            //sh "gcloud auth activate-service-account eadesignserviceprincipal@mscdevopscaauto.iam.gserviceaccount.com --key-file=mscdevopscaauto-827d6ac9e9d5.json"
+            sh "sudo usermod -a -G docker ${USER}"
+            sh "gcloud auth activate-service-account eadesignserviceprincipal@mscdevopscaauto.iam.gserviceaccount.com --key-file=mscdevopscaauto-827d6ac9e9d5.json"
             sh "gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://eu.gcr.io"
             sh "docker login -u oauth2accesstoken -p \"\$(gcloud auth print-access-token)\" https://eu.gcr.io"
         }
