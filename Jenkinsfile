@@ -76,12 +76,16 @@ node {
             if (buildImages) {
                 stage("Build Images") {
                     dir('sync/allthenews_v2'){
-                        buildDockerImage('allthenews')
+                        buildDockerImage('allthenews2')
+                    }
+                    dir('sync/allthenews_v3'){
+                        buildDockerImage('allthenews3')
                     }
                 }
                 
                 stage("Push Images") {
-                    pushDockerImage('allthenews')
+                    pushDockerImage('allthenews2')
+                    pushDockerImage('allthenews3')
                 }
             }
    
