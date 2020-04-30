@@ -104,10 +104,10 @@ node {
                 // Create deployments
                 ///sh "kubectl create deployment_nf.yaml"
                 //sh "kubectl create deployment_wf.yaml"
-                sh "kubectl create deployment_atn2.yaml"
-                sh "kubectl create deployment_atn3.yaml"
+                sh "kubectl apply -f deployment_atn2.yaml"
+                sh "kubectl apply -f deployment_atn3.yaml"
                 // Create services
-                sh "kubectl create service_atn.yaml"
+                sh "kubectl apply -f service_atn.yaml"
                 //sh "kubectl create service_nf.yaml"
                 //sh "kubectl create service_wf.yaml"
             }
