@@ -59,8 +59,8 @@ node {
         }
 
         def pushDockerImage = { imageName ->
-            sh "chmod +x ./push_images.sh"
-            sh "./push_images.sh ${imageName} ${env.BUILD_VERSION}"
+            sh "chmod +x ${WORKSPACE}/push_images.sh"
+            sh "${WORKSPACE}/push_images.sh ${imageName} ${env.BUILD_VERSION}"
             echo "Docker images pushed to repository"
         }
 
