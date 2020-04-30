@@ -49,19 +49,31 @@ node {
                 echo "Checkout done; Hash: '${env.COMMIT_HASH}'"
         }
 
+        def buildDockerImage = { imageName ->
+
+            echo "setting version: BUILD_LABEL='${imageName}'; COMMIT_HASH='${env.COMMIT_HASH}'"
+            sh "docker build -t '${imageName}:${env.BUILD_VERSION}' ."
+            echo "Docker containers built with tag '${imageName}:${env.BUILD_VERSION}'"
+            sh "docker images ${imageName}:${env.BUILD_VERSION}"
+
+        }
+
+        def pushDockerImage = { imageName ->
+            sh "chmod +x ./push_images.sh"
+            sh "./push_images.sh ${imageName} ${env.BUILD_VERSION}"
+            echo "Docker images pushed to repository"
+        }
+
         if(!cleanAks){
             if (buildImages) {
                 stage("Build Images") {
-                    echo "setting version: BUILD_LABEL='${env.BUILD_LABEL}'; COMMIT_HASH='${env.COMMIT_HASH}'"
-                    sh "docker build -t '${env.BUILD_LABEL}:${env.BUILD_VERSION}' ."
-                    echo "Docker containers built with tag '${env.BUILD_LABEL}:${env.BUILD_VERSION}'"
-                    sh "docker images ${env.BUILD_LABEL}:${env.BUILD_VERSION}"
+                    dir('sync/allthenews_v2'){
+                        buildDockerImage('allthenews')
+                    }
                 }
                 
                 stage("Push Images") {
-                    sh "chmod +x ./push_images.sh"
-                    sh "./push_images.sh ${env.BUILD_LABEL} ${env.BUILD_VERSION}"
-                    echo "Docker images pushed to repository"
+                    pushDockerImage('allthenews')
                 }
             }
    
