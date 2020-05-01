@@ -92,73 +92,71 @@ node {
             sh "${WORKSPACE}/deployFirewallRules.sh ${rulePort}"
         }
 
-        if(!cleanAks){
-            if (buildImages) {
-                stage('Build nf and wf services images'){
-                    dir('sync/newsfetcher'){
-                        buildDockerImage('newsfetcher')
-                    }
-                    dir('sync/weatherfetcher'){
-                        buildDockerImage('weatherfetcher')
-                    }
-                    if(pushImages){
-                        pushDockerImage('newsfetcher')
+        if (buildImages) {
+            stage('Build nf and wf services images'){
+                dir('sync/newsfetcher'){
+                    buildDockerImage('newsfetcher')
+                }
+                dir('sync/weatherfetcher'){
+                    buildDockerImage('weatherfetcher')
+                }
+                if(pushImages){
+                    pushDockerImage('newsfetcher')
+                    pushDockerImage('weatherfetcher')
+                }
+            }
+            
+            stage("Build SYNC Images") {
+                dir('sync/allthenews_v1'){
+                    buildDockerImage('allthenews1')
+                }
+            }
+
+            // Push images for the sync applications
+            if(pushImages){
+                stage("Push Images") {
+                    pushDockerImage('allthenews1')
+                }
+            }
+
+            stage("Build ASYNC Images") {
+                dir('async/newswatcher'){
+                    buildDockerImage('newsfetcher')
+                }
+                dir('async/weatherfetcher'){
+                    buildDockerImage('weatherfetcher')
+                }
+                dir('async/allthenews_v2'){
+                    buildDockerImage('allthenews2')
+                }
+
+                if(pushImages){
+                    stage("Push Images") {
+                        pushDockerImage('allthenews2')
                         pushDockerImage('weatherfetcher')
+                        pushDockerImage('newsfetcher')
                     }
                 }
                 
-                stage("Build SYNC Images") {
-                    dir('sync/allthenews_v1'){
-                        buildDockerImage('allthenews1')
+                // Build for lab
+                if(buildLab){
+                    dir('async/lab/door1'){
+                        buildDockerImage('door1')
                     }
-                }
-
-                // Push images for the sync applications
-                if(pushImages){
-                    stage("Push Images") {
-                        pushDockerImage('allthenews1')
+                    dir('async/lab/door2'){
+                        buildDockerImage('door2')
                     }
-                }
-
-                stage("Build ASYNC Images") {
-                    dir('async/newswatcher'){
-                        buildDockerImage('newsfetcher')
+                    dir('async/lab/door3'){
+                        buildDockerImage('door3')
                     }
-                    dir('async/weatherfetcher'){
-                        buildDockerImage('weatherfetcher')
+                    dir('async/lab/seccon'){
+                        buildDockerImage('seccon')
                     }
-                    dir('async/allthenews_v2'){
-                        buildDockerImage('allthenews2')
-                    }
-
                     if(pushImages){
-                        stage("Push Images") {
-                            pushDockerImage('allthenews2')
-                            pushDockerImage('weatherfetcher')
-                            pushDockerImage('newsfetcher')
-                        }
-                    }
-                    
-                    // Build for lab
-                    if(buildLab){
-                        dir('async/lab/door1'){
-                            buildDockerImage('door1')
-                        }
-                        dir('async/lab/door2'){
-                            buildDockerImage('door2')
-                        }
-                        dir('async/lab/door3'){
-                            buildDockerImage('door3')
-                        }
-                        dir('async/lab/seccon'){
-                            buildDockerImage('seccon')
-                        }
-                        if(pushImages){
-                            pushDockerImage('door1')
-                            pushDockerImage('door2')
-                            pushDockerImage('door3')
-                            pushDockerImage('seccon')
-                        }
+                        pushDockerImage('door1')
+                        pushDockerImage('door2')
+                        pushDockerImage('door3')
+                        pushDockerImage('seccon')
                     }
                 }
             }
