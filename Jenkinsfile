@@ -120,7 +120,7 @@ node {
             }
 
             stage("Build ASYNC Images") {
-                dir('async/newswatcher'){
+                dir('async/newsfetcher'){
                     buildDockerImage('newsfetcher')
                 }
                 dir('async/weatherfetcher'){
