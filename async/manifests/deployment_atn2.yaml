@@ -15,7 +15,7 @@ spec:
       containers:
         - name: atna
           image: eu.gcr.io/mscdevopscaauto/allthenews2:v1
-          args: ["news", "http://nfa-service:8888", "weather", "http://wfa-service:8888"]
+          args: ["news", "http://nfa-service:8888", "weather", "http://wfa-service:8888","1", "10", "redis-service:6379"]
           ports:
           - containerPort: 8080	  
         - name: atn-redis
