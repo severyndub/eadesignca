@@ -113,13 +113,13 @@ node {
                 }
 
                 stage("Build ASYNC Images") {
-                    dir('async/door'){
+                    dir('async/door1'){
                         buildDockerImage('door1')
                     }
-                    dir('async/door1'){
+                    dir('async/door2'){
                         buildDockerImage('door2')
                     }
-                    dir('async/door2'){
+                    dir('async/door3'){
                         buildDockerImage('door3')
                     }
                     dir('async/seccon'){
