@@ -69,14 +69,6 @@ node {
             }
         }
         
-        stage('Responses'){
-            if(testResponses){
-                sh "chmod +x ${WORKSPACE}/measure_response.sh"
-                sh "${WORKSPACE}/measure_response.sh 'http://104.155.116.131:31916/allthenews?style=plain'"
-                return 0
-            }
-        }
-
         if(justAksClean){         
             echo "EXIT NOW!"
             return 0
@@ -87,6 +79,14 @@ node {
                 def checkout = checkout scm
                 env.COMMIT_HASH = checkout.GIT_COMMIT
                 echo "Checkout done; Hash: '${env.COMMIT_HASH}'"
+        }
+
+        stage('Responses'){
+            if(testResponses){
+                sh "chmod +x ${WORKSPACE}/measure_response.sh"
+                sh "${WORKSPACE}/measure_response.sh 'http://104.155.116.131:31916/allthenews?style=plain'"
+                return 0
+            }
         }
 
         def loginGCDocker = {
