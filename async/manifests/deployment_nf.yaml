@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfa-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nfa
+  template:
+    metadata:
+      labels:
+        app: nfa
+    spec:
+      containers:
+        - name: nfa
+          image: eu.gcr.io/mscdevopscaauto/newsfetcher:v1

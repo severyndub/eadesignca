@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nfa-service
+  labels:
+    name: nfa-service
+spec:
+  ports:
+  - port: 8898
+    protocol: TCP
+    targetPort: 8898
+  selector:
+    app: nfa
+  type: ClusterIP

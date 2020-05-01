@@ -4,6 +4,7 @@
     boolean clearImages = true
     boolean cleanAks = false
     boolean pushImages = false
+    boolean buildLab = false
     def branch = env.GIT_BRANCH?.trim().split('/').last().toLowerCase()
 
 node {
@@ -94,10 +95,10 @@ node {
         if(!cleanAks){
             if (buildImages) {
                 stage('Build nf and wf services images'){
-                    dir('newsfetcher'){
+                    dir('sync/newsfetcher'){
                         buildDockerImage('newsfetcher')
                     }
-                    dir('weatherfetcher'){
+                    dir('sync/weatherfetcher'){
                         buildDockerImage('weatherfetcher')
                     }
                     if(pushImages){
@@ -107,7 +108,7 @@ node {
                 }
                 
                 stage("Build SYNC Images") {
-                    dir('allthenews_v1'){
+                    dir('sync/allthenews_v1'){
                         buildDockerImage('allthenews1')
                     }
                 }
@@ -120,31 +121,44 @@ node {
                 }
 
                 stage("Build ASYNC Images") {
-                    
-                    
-                    // dir('async/lab/door1'){
-                    //     buildDockerImage('door1')
-                    // }
-                    // dir('async/lab/door2'){
-                    //     buildDockerImage('door2')
-                    // }
-                    // dir('async/lab/door3'){
-                    //     buildDockerImage('door3')
-                    // }
-                    // dir('async/lab/seccon'){
-                    //     buildDockerImage('seccon')
-                    // }
-                }
+                    dir('async/newswatcher'){
+                        buildDockerImage('newsfetcher')
+                    }
+                    dir('async/weatherfetcher'){
+                        buildDockerImage('weatherfetcher')
+                    }
+                    dir('async/allthenews_v2'){
+                        buildDockerImage('allthenews2')
+                    }
 
-                // Push images for the async applications
-                if(pushImages){
-                    stage("Push Images") {
-                        
-                        
-                        // pushDockerImage('door1')
-                        // pushDockerImage('door2')
-                        // pushDockerImage('door3')
-                        // pushDockerImage('seccon')
+                    if(pushImages){
+                        stage("Push Images") {
+                            pushDockerImage('allthenews2')
+                            pushDockerImage('weatherfetcher')
+                            pushDockerImage('newsfetcher')
+                        }
+                    }
+                    
+                    // Build for lab
+                    if(buildLab){
+                        dir('async/lab/door1'){
+                            buildDockerImage('door1')
+                        }
+                        dir('async/lab/door2'){
+                            buildDockerImage('door2')
+                        }
+                        dir('async/lab/door3'){
+                            buildDockerImage('door3')
+                        }
+                        dir('async/lab/seccon'){
+                            buildDockerImage('seccon')
+                        }
+                        if(pushImages){
+                            pushDockerImage('door1')
+                            pushDockerImage('door2')
+                            pushDockerImage('door3')
+                            pushDockerImage('seccon')
+                        }
                     }
                 }
             }
@@ -159,8 +173,6 @@ node {
                 sh "kubectl apply -f deployment_nf.yaml"
                 sh "kubectl apply -f deployment_wf.yaml"
                 sh "kubectl apply -f deployment_atn1.yaml"
-                
-                // Deploy services
                 sh "kubectl apply -f service_nf.yaml"
                 sh "kubectl apply -f service_wf.yaml"
                 sh "kubectl apply -f service_atn.yaml"
@@ -169,16 +181,31 @@ node {
                 createFirewallRule('31916')
             }
 
-            // dir('async/lab/manifests'){
-                
-            //     // Create async application deployments and services
-            //     // sh "kubectl apply -f deployment_d1.yaml"
-            //     // sh "kubectl apply -f deployment_d2.yaml"
-            //     // sh "kubectl apply -f deployment_d3.yaml"
-            //     // sh "kubectl apply -f redis.yaml"
-            //     // sh "kubectl apply -f seccon.yaml"
-            //     //createFirewallRule('31080')
-            // }
+            if(buildLab){
+                dir('async/lab/manifests'){
+
+                    // Create async application deployments and services
+                    sh "kubectl apply -f deployment_d1.yaml"
+                    sh "kubectl apply -f deployment_d2.yaml"
+                    sh "kubectl apply -f deployment_d3.yaml"
+                    sh "kubectl apply -f redis.yaml"
+                    sh "kubectl apply -f seccon.yaml"
+                    createFirewallRule('31080')
+                }
+            }
+
+            dir('async/manifests'){
+                // Create sync application deployments and services
+                sh "gcloud container clusters get-credentials mscdevopsk8s --zone europe-west1-b --project mscdevopscaauto"
+                sh "kubectl apply -f deployment_atn2.yaml"
+                sh "kubectl apply -f deployment_nf.yaml"
+                sh "kubectl apply -f deployment_wf.yaml"
+                sh "kubectl apply -f redis.yaml"
+                sh "kubectl apply -f seccon.yaml"
+                sh "kubectl apply -f service_atn.yaml"
+                sh "kubectl apply -f service_nf.yaml"
+                sh "kubectl apply -f service_wf.yaml"
+            }
 
             // Display all external ips
             sh "kubectl describe nodes | grep ExternalIP"

@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wfa-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wfa
+  template:
+    metadata:
+      labels:
+        app: wfa
+    spec:
+      containers:
+        - name: wfa
+          image: eu.gcr.io/mscdevopscaauto/weatherfetcher:v1
