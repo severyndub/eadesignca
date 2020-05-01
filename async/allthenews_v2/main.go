@@ -28,33 +28,7 @@ func main() {
 	log.Printf("Server started")
 
 	router := sw.NewRouter()
-	sw.Configure(os.Args[1:4])
+	sw.Configure(os.Args[1:])
 	
 	log.Fatal(http.ListenAndServe(":8090", router))
-
-	// get the door number from command line arg 1
-	doorNum, err := strconv.Atoi(os.Args[5])
-	if err != nil {
-		panic(err)
-	}
-
-	// get the max number of seconds between entries for the random generator
-	maxSeconds, err := strconv.Atoi(os.Args[6])
-	if err != nil {
-		panic(err)
-	}
-
-	// connect to redis specified by url in the third argument
-	conn, err := Dial("tcp", os.Args[7])
-	if err != nil {
-		panic(err)
-	}
-	
-	for {
-		doorName := "door" + strconv.Itoa(doorNum)
-		log.Printf(doorName + "[INFO]: Publishing to channel " + doorName)
-		// the event contains a dummy string "1" - it is the count of events that matters, not the content
-		conn.Do(Cmd(nil, "PUBLISH", doorName, "1"))
-		time.Sleep(time.Duration(rand.Intn(maxSeconds)) * time.Second)
-	}
 }
