@@ -107,44 +107,44 @@ node {
                 }
                 
                 stage("Build SYNC Images") {
-                    dir('sync/allthenews_v2'){
-                        buildDockerImage('allthenews2')
-                    }
-                    dir('sync/allthenews_v3'){
-                        buildDockerImage('allthenews3')
+                    dir('allthenews_v1'){
+                        buildDockerImage('allthenews1')
                     }
                 }
 
                 // Push images for the sync applications
                 if(pushImages){
                     stage("Push Images") {
-                        pushDockerImage('allthenews2')
-                        pushDockerImage('allthenews3')
+                        pushDockerImage('allthenews1')
                     }
                 }
 
                 stage("Build ASYNC Images") {
-                    dir('async/door1'){
-                        buildDockerImage('door1')
-                    }
-                    dir('async/door2'){
-                        buildDockerImage('door2')
-                    }
-                    dir('async/door3'){
-                        buildDockerImage('door3')
-                    }
-                    dir('async/seccon'){
-                        buildDockerImage('seccon')
-                    }
+                    
+                    
+                    // dir('async/lab/door1'){
+                    //     buildDockerImage('door1')
+                    // }
+                    // dir('async/lab/door2'){
+                    //     buildDockerImage('door2')
+                    // }
+                    // dir('async/lab/door3'){
+                    //     buildDockerImage('door3')
+                    // }
+                    // dir('async/lab/seccon'){
+                    //     buildDockerImage('seccon')
+                    // }
                 }
 
                 // Push images for the async applications
                 if(pushImages){
                     stage("Push Images") {
-                        pushDockerImage('door1')
-                        pushDockerImage('door2')
-                        pushDockerImage('door3')
-                        pushDockerImage('seccon')
+                        
+                        
+                        // pushDockerImage('door1')
+                        // pushDockerImage('door2')
+                        // pushDockerImage('door3')
+                        // pushDockerImage('seccon')
                     }
                 }
             }
@@ -158,8 +158,7 @@ node {
                 sh "gcloud container clusters get-credentials mscdevopsk8s --zone europe-west1-b --project mscdevopscaauto"
                 sh "kubectl apply -f deployment_nf.yaml"
                 sh "kubectl apply -f deployment_wf.yaml"
-                sh "kubectl apply -f deployment_atn2.yaml"
-                sh "kubectl apply -f deployment_atn3.yaml"
+                sh "kubectl apply -f deployment_atn1.yaml"
                 
                 // Deploy services
                 sh "kubectl apply -f service_nf.yaml"
@@ -170,16 +169,16 @@ node {
                 createFirewallRule('31916')
             }
 
-            dir('async/manifests'){
+            // dir('async/lab/manifests'){
                 
-                // Create async application deployments and services
-                sh "kubectl apply -f deployment_d1.yaml"
-                sh "kubectl apply -f deployment_d2.yaml"
-                sh "kubectl apply -f deployment_d3.yaml"
-                sh "kubectl apply -f redis.yaml"
-                sh "kubectl apply -f seccon.yaml"
-                createFirewallRule('31080')
-            }
+            //     // Create async application deployments and services
+            //     // sh "kubectl apply -f deployment_d1.yaml"
+            //     // sh "kubectl apply -f deployment_d2.yaml"
+            //     // sh "kubectl apply -f deployment_d3.yaml"
+            //     // sh "kubectl apply -f redis.yaml"
+            //     // sh "kubectl apply -f seccon.yaml"
+            //     //createFirewallRule('31080')
+            // }
 
             // Display all external ips
             sh "kubectl describe nodes | grep ExternalIP"
