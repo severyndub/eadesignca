@@ -41,6 +41,7 @@ main(){
                 echo "Rule with name ${ruleFullName} exists, doing nothing."
         else
                 echo "Rule with name ${ruleFullName} does not exist, create now"
+                gcloud config set project 'mscdevopscaauto'
                 gcloud compute firewall-rules create ${ruleFullName} --allow tcp:${portNumber}
         fi
 }
