@@ -12,7 +12,7 @@ node {
 
     try {
 
-        env.BUILD_VERSION = "v1"
+        env.BUILD_VERSION = params.BUILD_VERSION
         env.BUILD_LABEL = 'allthenews'
         buildImages = params.BUILD_IMAGES
         clearImages = params.CLEAR_IMAGES
