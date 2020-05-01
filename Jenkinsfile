@@ -40,19 +40,19 @@ node {
             // Navigate to fe-service deployment directory
             dir('manifest'){
                 // Delete deployments
-                sh "kubectl get deployments -n default --no-headers=true | awk '/atn/{print \$1}' | xargs kubectl delete -n default deployment" || echo true
-                sh "kubectl get deployments -n default --no-headers=true | awk '/door/{print \$1}' | xargs kubectl delete -n default deployment" || echo true
-                sh "kubectl get deployments -n default --no-headers=true | awk '/nf/{print \$1}' | xargs kubectl delete -n default deployment" || echo true
-                sh "kubectl get deployments -n default --no-headers=true | awk '/redis/{print \$1}' | xargs kubectl delete -n default deployment" || echo true
-                sh "kubectl get deployments -n default --no-headers=true | awk '/seccon/{print \$1}' | xargs kubectl delete -n default deployment" || echo true
-                sh "kubectl get deployments -n default --no-headers=true | awk '/wf/{print \$1}' | xargs kubectl delete -n default deployment" || echo true
+                sh "kubectl get deployments -n default --no-headers=true | awk '/atn/{print \$1}' | xargs kubectl delete -n default deployment" || true
+                sh "kubectl get deployments -n default --no-headers=true | awk '/door/{print \$1}' | xargs kubectl delete -n default deployment" || true
+                sh "kubectl get deployments -n default --no-headers=true | awk '/nf/{print \$1}' | xargs kubectl delete -n default deployment" || true
+                sh "kubectl get deployments -n default --no-headers=true | awk '/redis/{print \$1}' | xargs kubectl delete -n default deployment" || true
+                sh "kubectl get deployments -n default --no-headers=true | awk '/seccon/{print \$1}' | xargs kubectl delete -n default deployment" || true
+                sh "kubectl get deployments -n default --no-headers=true | awk '/wf/{print \$1}' | xargs kubectl delete -n default deployment" || true
                 
                 // Delete services
-                sh "kubectl get services -n default --no-headers=true | awk '/atn/{print \$1}' | xargs kubectl delete -n default service" || echo true
-                sh "kubectl get services -n default --no-headers=true | awk '/nf/{print \$1}' | xargs kubectl delete -n default service" || echo true
-                sh "kubectl get services -n default --no-headers=true | awk '/redis/{print \$1}' | xargs kubectl delete -n default service" || echo true
-                sh "kubectl get services -n default --no-headers=true | awk '/seccon/{print \$1}' | xargs kubectl delete -n default service" || echo true
-                sh "kubectl get services -n default --no-headers=true | awk '/wf/{print \$1}' | xargs kubectl delete -n default service" || echo true
+                sh "kubectl get services -n default --no-headers=true | awk '/atn/{print \$1}' | xargs kubectl delete -n default service" || true
+                sh "kubectl get services -n default --no-headers=true | awk '/nf/{print \$1}' | xargs kubectl delete -n default service" || true
+                sh "kubectl get services -n default --no-headers=true | awk '/redis/{print \$1}' | xargs kubectl delete -n default service" || true
+                sh "kubectl get services -n default --no-headers=true | awk '/seccon/{print \$1}' | xargs kubectl delete -n default service" || true
+                sh "kubectl get services -n default --no-headers=true | awk '/wf/{print \$1}' | xargs kubectl delete -n default service" || true
             }
         }
         
