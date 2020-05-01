@@ -40,20 +40,19 @@ node {
             // Navigate to fe-service deployment directory
             dir('manifest'){
                 // Delete deployments
-                sh "kubectl get deployments -n default --no-headers=true | awk '/atn/{print \$1}' | xargs kubectl delete -n default deployment"
-                sh "kubectl get deployments -n default --no-headers=true | awk '/door/{print \$1}' | xargs kubectl delete -n default deployment"
-                sh "kubectl get deployments -n default --no-headers=true | awk '/nf/{print \$1}' | xargs kubectl delete -n default deployment"
-                sh "kubectl get deployments -n default --no-headers=true | awk '/redis/{print \$1}' | xargs kubectl delete -n default deployment"
-                sh "kubectl get deployments -n default --no-headers=true | awk '/seccon/{print \$1}' | xargs kubectl delete -n default deployment"
-                sh "kubectl get deployments -n default --no-headers=true | awk '/wf/{print \$1}' | xargs kubectl delete -n default deployment"
+                sh "kubectl get deployments -n default --no-headers=true | awk '/atn/{print \$1}' | xargs kubectl delete -n default deployment" || echo "already deleted"
+                sh "kubectl get deployments -n default --no-headers=true | awk '/door/{print \$1}' | xargs kubectl delete -n default deployment" || echo "already deleted"
+                sh "kubectl get deployments -n default --no-headers=true | awk '/nf/{print \$1}' | xargs kubectl delete -n default deployment" || echo "already deleted"
+                sh "kubectl get deployments -n default --no-headers=true | awk '/redis/{print \$1}' | xargs kubectl delete -n default deployment" || echo "already deleted"
+                sh "kubectl get deployments -n default --no-headers=true | awk '/seccon/{print \$1}' | xargs kubectl delete -n default deployment" || echo "already deleted"
+                sh "kubectl get deployments -n default --no-headers=true | awk '/wf/{print \$1}' | xargs kubectl delete -n default deployment" || echo "already deleted"
                 
                 // Delete services
-                sh "kubectl get services -n default --no-headers=true | awk '/atn/{print \$1}' | xargs kubectl delete -n default service"
-                sh "kubectl get services -n default --no-headers=true | awk '/nf/{print \$1}' | xargs kubectl delete -n default service"
-                sh "kubectl get services -n default --no-headers=true | awk '/redis/{print \$1}' | xargs kubectl delete -n default service"
-                sh "kubectl get services -n default --no-headers=true | awk '/seccon/{print \$1}' | xargs kubectl delete -n default service"
-                sh "kubectl get services -n default --no-headers=true | awk '/wf/{print \$1}' | xargs kubectl delete -n default service"
-
+                sh "kubectl get services -n default --no-headers=true | awk '/atn/{print \$1}' | xargs kubectl delete -n default service" || echo "already deleted"
+                sh "kubectl get services -n default --no-headers=true | awk '/nf/{print \$1}' | xargs kubectl delete -n default service" || echo "already deleted"
+                sh "kubectl get services -n default --no-headers=true | awk '/redis/{print \$1}' | xargs kubectl delete -n default service" || echo "already deleted"
+                sh "kubectl get services -n default --no-headers=true | awk '/seccon/{print \$1}' | xargs kubectl delete -n default service" || echo "already deleted"
+                sh "kubectl get services -n default --no-headers=true | awk '/wf/{print \$1}' | xargs kubectl delete -n default service" || echo "already deleted"
             }
         }
         
