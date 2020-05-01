@@ -6,9 +6,9 @@ metadata:
     name: wfa-service
 spec:
   ports:
-  - port: 8898
+  - port: 8888
     protocol: TCP
-    targetPort: 8898
+    targetPort: 8888
   selector:
     app: wfa
   type: ClusterIP
