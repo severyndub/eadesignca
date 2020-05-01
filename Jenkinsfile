@@ -7,6 +7,7 @@
     boolean buildLab = false
     boolean buildAsync = false
     boolean buildSync = false
+    boolean justAksClean = false
     def branch = env.GIT_BRANCH?.trim().split('/').last().toLowerCase()
 
 node {
@@ -23,6 +24,7 @@ node {
         pushImages = params.PUSH_IMAGES
         buildAsync = params.BUILD_ASYNC
         buildSync = params.BUILD_SYNC
+        justAksClean = params.JUST_AKS_CLEAN
 
         // Check if the build label is set
         if (buildImages) {
@@ -41,6 +43,7 @@ node {
             pushImages: '${pushImages}'
             buildSync: '${buildSync}'
             buildAsync: '${buildAsync}'
+            justAksClean: '${justAksClean}'
         """
 
         if(cleanAks) {
@@ -60,6 +63,10 @@ node {
                 sh ( script: "kubectl get services -n default --no-headers=true | awk '/redis/{print \$1}' | xargs kubectl delete -n default service", returnStatus: true)
                 sh ( script: "kubectl get services -n default --no-headers=true | awk '/seccon/{print \$1}' | xargs kubectl delete -n default service", returnStatus: true)
                 sh ( script: "kubectl get services -n default --no-headers=true | awk '/wf/{print \$1}' | xargs kubectl delete -n default service", returnStatus: true)
+                if(justAksClean){
+                    echo "EXIT NOW!"
+                    return 0
+                }
             }
         }
         
