@@ -6,14 +6,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: atn2
+      app: atn
   template:
     metadata:
       labels:
-        app: atn2
+        app: atn
     spec:
       containers:
-        - name: atn2
+        - name: atn
           image: eu.gcr.io/mscdevopscaauto/allthenews2:v1
           args: ["news", "http://nfa-service:8898", "weather", "http://wfa-service:8898","3", "10", "redis-service:6379"]
           ports:

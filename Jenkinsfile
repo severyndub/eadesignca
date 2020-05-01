@@ -5,6 +5,8 @@
     boolean cleanAks = false
     boolean pushImages = false
     boolean buildLab = false
+    boolean buildAsync = false
+    boolean buildSync = false
     def branch = env.GIT_BRANCH?.trim().split('/').last().toLowerCase()
 
 node {
@@ -19,6 +21,8 @@ node {
         clearImages = params.CLEAR_IMAGES
         cleanAks = params.CLEAN_AKS
         pushImages = params.PUSH_IMAGES
+        buildAsync = params.BUILD_ASYNC
+        buildSync = params.BUILD_SYNC
 
         // Check if the build label is set
         if (buildImages) {
@@ -35,6 +39,8 @@ node {
             clearImages: '${clearImages}'
             cleanAks: '${cleanAks}'
             pushImages: '${pushImages}'
+            buildSync: '${buildSync}'
+            buildAsync: '${buildAsync}'
         """
 
         if(cleanAks) {
@@ -93,70 +99,74 @@ node {
         }
 
         if (buildImages) {
-            stage('Build nf and wf services images'){
-                dir('sync/newsfetcher'){
-                    buildDockerImage('newsfetcher')
-                }
-                dir('sync/weatherfetcher'){
-                    buildDockerImage('weatherfetcher')
-                }
-                if(pushImages){
-                    pushDockerImage('newsfetcher')
-                    pushDockerImage('weatherfetcher')
-                }
-            }
-            
-            stage("Build SYNC Images") {
-                dir('sync/allthenews_v1'){
-                    buildDockerImage('allthenews1')
-                }
-            }
-
-            // Push images for the sync applications
-            if(pushImages){
-                stage("Push Images") {
-                    pushDockerImage('allthenews1')
-                }
-            }
-
-            stage("Build ASYNC Images") {
-                dir('async/newsfetcher'){
-                    buildDockerImage('newsfetcher')
-                }
-                dir('async/weatherfetcher'){
-                    buildDockerImage('weatherfetcher')
-                }
-                dir('async/allthenews_v2'){
-                    buildDockerImage('allthenews2')
-                }
-
-                if(pushImages){
-                    stage("Push Images") {
-                        pushDockerImage('allthenews2')
-                        pushDockerImage('weatherfetcher')
-                        pushDockerImage('newsfetcher')
+            if(buildSync){
+                stage('Build nf and wf services images'){
+                    dir('sync/newsfetcher'){
+                        buildDockerImage('newsfetcher')
                     }
-                }
-                
-                // Build for lab
-                if(buildLab){
-                    dir('async/lab/door1'){
-                        buildDockerImage('door1')
-                    }
-                    dir('async/lab/door2'){
-                        buildDockerImage('door2')
-                    }
-                    dir('async/lab/door3'){
-                        buildDockerImage('door3')
-                    }
-                    dir('async/lab/seccon'){
-                        buildDockerImage('seccon')
+                    dir('sync/weatherfetcher'){
+                        buildDockerImage('weatherfetcher')
                     }
                     if(pushImages){
-                        pushDockerImage('door1')
-                        pushDockerImage('door2')
-                        pushDockerImage('door3')
-                        pushDockerImage('seccon')
+                        pushDockerImage('newsfetcher')
+                        pushDockerImage('weatherfetcher')
+                    }
+                }
+
+                stage("Build SYNC Images") {
+                    dir('sync/allthenews_v1'){
+                        buildDockerImage('allthenews1')
+                    }
+                }
+
+                // Push images for the sync applications
+                if(pushImages){
+                    stage("Push Images") {
+                        pushDockerImage('allthenews1')
+                    }
+                }
+            }
+
+            if(buildAsync){
+                stage("Build ASYNC Images") {
+                    dir('async/newsfetcher'){
+                        buildDockerImage('newsfetcher')
+                    }
+                    dir('async/weatherfetcher'){
+                        buildDockerImage('weatherfetcher')
+                    }
+                    dir('async/allthenews_v2'){
+                        buildDockerImage('allthenews2')
+                    }
+
+                    if(pushImages){
+                        stage("Push Images") {
+                            pushDockerImage('allthenews2')
+                            pushDockerImage('weatherfetcher')
+                            pushDockerImage('newsfetcher')
+                        }
+                    }
+
+                    // Build for lab
+                    if(buildLab){
+                        dir('async/lab/door1'){
+                            buildDockerImage('door1')
+                        }
+                        dir('async/lab/door2'){
+                            buildDockerImage('door2')
+                        }
+                        dir('async/lab/door3'){
+                            buildDockerImage('door3')
+                        }
+                        dir('async/lab/seccon'){
+                            buildDockerImage('seccon')
+                        }
+                        if(pushImages){
+                            pushDockerImage('door1')
+                            pushDockerImage('door2')
+                            pushDockerImage('door3')
+                            pushDockerImage('seccon')
+                        }
                     }
                 }
             }
