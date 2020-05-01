@@ -8,6 +8,7 @@
     boolean buildAsync = false
     boolean buildSync = false
     boolean justAksClean = false
+    boolean testResponses = true
     def branch = env.GIT_BRANCH?.trim().split('/').last().toLowerCase()
 
 node {
@@ -69,9 +70,12 @@ node {
         }
         
         stage('Responses'){
-            sh "primes 1 100 |gnuplot -p -e 'plot \"/dev/stdin\"'"
-            sh "chmod +x ${WORKSPACE}/measure_respone.sh"
-            sh "${WORKSPACE}/measure_respone.sh 'http://104.155.116.131:31916/allthenews?style=plain'"
+            if(testResponses){
+                sh "primes 1 100 |gnuplot -p -e 'plot \"/dev/stdin\"'"
+                sh "chmod +x ${WORKSPACE}/measure_respone.sh"
+                sh "${WORKSPACE}/measure_respone.sh 'http://104.155.116.131:31916/allthenews?style=plain'"
+                return 0
+            }
         }
 
         if(justAksClean){         
