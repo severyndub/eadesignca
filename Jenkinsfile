@@ -75,6 +75,11 @@ node {
             echo "Docker images pushed to repository"
         }
 
+        def createFirewallRules = { rulePort ->
+            sh "chmod +x ${WORKSPCAE}/deployFirewallRules.sh"
+            sh "${WORKSPCAE}/deployFirewallRules.sh ${rulePort}"
+        }
+
         if(!cleanAks){
             if (buildImages) {
                 stage('Build nf and wf services images'){
@@ -134,7 +139,9 @@ node {
 
                 // show all external ips
                 sh "kubectl describe nodes | grep ExternalIP"
-                sh "gcloud compute firewall-rules create test-node-port31916 --allow tcp:31916"
+
+                //Create firewall rules
+                createFirewallRules ('31916')
             }
 
         }
