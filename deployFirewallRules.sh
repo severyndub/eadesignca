@@ -33,15 +33,17 @@ checkRuleExists(){
 
 
 main(){
+        # Set GC project
+        gcloud config set project 'mscdevopscaauto'
+
         checkRuleExists
-        echo $result
+        #echo $result
 
         if [[ $result == 1 ]];
         then
                 echo "Rule with name ${ruleFullName} exists, doing nothing."
         else
                 echo "Rule with name ${ruleFullName} does not exist, create now"
-                gcloud config set project 'mscdevopscaauto'
                 gcloud compute firewall-rules create ${ruleFullName} --allow tcp:${portNumber}
         fi
 }
