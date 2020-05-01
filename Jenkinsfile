@@ -77,6 +77,19 @@ node {
 
         if(!cleanAks){
             if (buildImages) {
+                stage('Build nf and wf services images'){
+                    dir('newsfetcher'){
+                        buildDockerImage('newsfetcher')
+                    }
+                    dir('weatherfetcher'){
+                        buildDockerImage('weatherfetcher')
+                    }
+                    if(pushImages){
+                        pushDockerImage('newsfetcher')
+                        pushDockerImage('weatherfetcher')
+                    }
+                }
+                
                 stage("Build SYNC Images") {
                     dir('sync/allthenews_v2'){
                         buildDockerImage('allthenews2')
@@ -104,16 +117,24 @@ node {
 
         stage('Deploy images to GC K8s'){
             dir('sync/manifests'){
+
                 // Create deployments
                 sh "gcloud container clusters get-credentials mscdevopsk8s --zone europe-west1-b --project mscdevopscaauto"
-                ///sh "kubectl create deployment_nf.yaml"
-                //sh "kubectl create deployment_wf.yaml"
+                sh "kubectl apply deployment_nf.yaml"
+                sh "kubectl apply deployment_wf.yaml"
                 sh "kubectl apply -f deployment_atn2.yaml"
                 sh "kubectl apply -f deployment_atn3.yaml"
-                // Create services
+                
+                // Deploy services
+                sh "kubectl apply -f service_nf.yaml"
+                sh "kubectl apply -f service_wf.yaml"
                 sh "kubectl apply -f service_atn.yaml"
-                //sh "kubectl create service_nf.yaml"
-                //sh "kubectl create service_wf.yaml"
+
+//TODO: add async applications
+
+                // show all external ips
+                sh "kubectl describe nodes | grep ExternalIP"
+                sh "gcloud compute firewall-rules create test-node-port31916 --allow tcp:31916"
             }
 
         }

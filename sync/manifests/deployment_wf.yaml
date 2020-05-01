@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: wf
-          image: eu.gcr.io/mscdevopsca/weatherfetcher:v1
+          image: eu.gcr.io/mscdevopscaauto/weatherfetcher:v1
