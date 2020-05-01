@@ -71,8 +71,8 @@ node {
         
         stage('Responses'){
             if(testResponses){
-                sh "chmod +x ${WORKSPACE}/measure_respone.sh"
-                sh "${WORKSPACE}/measure_respone.sh 'http://104.155.116.131:31916/allthenews?style=plain'"
+                sh "chmod +x ${WORKSPACE}/measure_response.sh"
+                sh "${WORKSPACE}/measure_response.sh 'http://104.155.116.131:31916/allthenews?style=plain'"
                 return 0
             }
         }
