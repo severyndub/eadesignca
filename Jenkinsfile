@@ -75,7 +75,7 @@ node {
             echo "Docker images pushed to repository"
         }
 
-        def createFirewallRules = { rulePort ->
+        def createFirewallRule = { rulePort ->
             sh "chmod +x ${WORKSPACE}/deployFirewallRules.sh"
             sh "${WORKSPACE}/deployFirewallRules.sh ${rulePort}"
         }
@@ -103,27 +103,47 @@ node {
                         buildDockerImage('allthenews3')
                     }
                 }
+
+                // Push images for the sync applications
                 if(pushImages){
                     stage("Push Images") {
                         pushDockerImage('allthenews2')
                         pushDockerImage('allthenews3')
                     }
                 }
-                // stage("Build ASYNC Images") {
-                //     dir('async/allthenews_v2'){
-                //         buildDockerImage('allthenews2')
-                //     }
-                //     dir('sync/allthenews_v3'){
-                //         buildDockerImage('allthenews3')
-                //     }
-                // }
+
+                stage("Build ASYNC Images") {
+                    dir('async/door'){
+                        buildDockerImage('door1')
+                    }
+                    dir('async/door1'){
+                        buildDockerImage('door2')
+                    }
+                    dir('async/door2'){
+                        buildDockerImage('door3')
+                    }
+                    dir('async/seccon'){
+                        buildDockerImage('seccon')
+                    }
+                }
+
+                // Push images for the async applications
+                if(pushImages){
+                    stage("Push Images") {
+                        pushDockerImage('door1')
+                        pushDockerImage('door2')
+                        pushDockerImage('door3')
+                        pushDockerImage('seccon')
+                    }
+                }
             }
         }
+    
 
         stage('Deploy images to GC K8s'){
             dir('sync/manifests'){
 
-                // Create deployments
+                // Create sync application deployments and services
                 sh "gcloud container clusters get-credentials mscdevopsk8s --zone europe-west1-b --project mscdevopscaauto"
                 sh "kubectl apply -f deployment_nf.yaml"
                 sh "kubectl apply -f deployment_wf.yaml"
@@ -135,14 +155,23 @@ node {
                 sh "kubectl apply -f service_wf.yaml"
                 sh "kubectl apply -f service_atn.yaml"
 
-//TODO: add async applications
-
-                // show all external ips
-                sh "kubectl describe nodes | grep ExternalIP"
-
                 //Create firewall rules
-                createFirewallRules('31916')
+                createFirewallRule('31916')
             }
+
+            dir('async/manifests'){
+                
+                // Create async application deployments and services
+                sh "kubectl apply -f deployment_d1.yaml"
+                sh "kubectl apply -f deployment_d2.yaml"
+                sh "kubectl apply -f deployment_d3.yaml"
+                sh "kubectl apply -f redis.yaml"
+                sh "kubectl apply -f seccon.yaml"
+                createFirewallRule('31080')
+            }
+
+            // Display all external ips
+            sh "kubectl describe nodes | grep ExternalIP"
 
         }
 
