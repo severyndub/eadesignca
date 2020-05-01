@@ -63,13 +63,14 @@ node {
                 sh ( script: "kubectl get services -n default --no-headers=true | awk '/redis/{print \$1}' | xargs kubectl delete -n default service", returnStatus: true)
                 sh ( script: "kubectl get services -n default --no-headers=true | awk '/seccon/{print \$1}' | xargs kubectl delete -n default service", returnStatus: true)
                 sh ( script: "kubectl get services -n default --no-headers=true | awk '/wf/{print \$1}' | xargs kubectl delete -n default service", returnStatus: true)
-                if(justAksClean){
-                    echo "EXIT NOW!"
-                    return 0
-                }
             }
         }
         
+        if(justAksClean){
+            echo "EXIT NOW!"
+            return 0
+        }
+
         stage("Pull Source") {
             //trying to get the hash without checkout gets the hash set in previous build.
                 def checkout = checkout scm
