@@ -182,19 +182,20 @@ node {
     
 
         stage('Deploy images to GC K8s'){
-            dir('sync/manifests'){
-
-                // Create sync application deployments and services
-                sh "gcloud container clusters get-credentials mscdevopsk8s --zone europe-west1-b --project mscdevopscaauto"
-                sh "kubectl apply -f deployment_nf.yaml"
-                sh "kubectl apply -f deployment_wf.yaml"
-                sh "kubectl apply -f deployment_atn1.yaml"
-                sh "kubectl apply -f service_nf.yaml"
-                sh "kubectl apply -f service_wf.yaml"
-                sh "kubectl apply -f service_atn.yaml"
-
-                //Create firewall rules
-                createFirewallRule('31916')
+            if(buildSync){
+                dir('sync/manifests'){
+                    // Create sync application deployments and services
+                    sh "gcloud container clusters get-credentials mscdevopsk8s --zone europe-west1-b --project mscdevopscaauto"
+                    sh "kubectl apply -f deployment_nf.yaml"
+                    sh "kubectl apply -f deployment_wf.yaml"
+                    sh "kubectl apply -f deployment_atn1.yaml"
+                    sh "kubectl apply -f service_nf.yaml"
+                    sh "kubectl apply -f service_wf.yaml"
+                    sh "kubectl apply -f service_atn.yaml"
+    
+                    //Create firewall rules
+                    createFirewallRule('31916')
+                }
             }
 
             if(buildLab){
@@ -210,17 +211,19 @@ node {
                 }
             }
 
-            dir('async/manifests'){
-                // Create sync application deployments and services
-                sh "gcloud container clusters get-credentials mscdevopsk8s --zone europe-west1-b --project mscdevopscaauto"
-                sh "kubectl apply -f deployment_atn2.yaml"
-                sh "kubectl apply -f deployment_nf.yaml"
-                sh "kubectl apply -f deployment_wf.yaml"
-                sh "kubectl apply -f redis.yaml"
-                sh "kubectl apply -f seccon.yaml"
-                sh "kubectl apply -f service_atn.yaml"
-                sh "kubectl apply -f service_nf.yaml"
-                sh "kubectl apply -f service_wf.yaml"
+            if(buildAsync){
+                dir('async/manifests'){
+                    // Create sync application deployments and services
+                    sh "gcloud container clusters get-credentials mscdevopsk8s --zone europe-west1-b --project mscdevopscaauto"
+                    sh "kubectl apply -f deployment_atn2.yaml"
+                    sh "kubectl apply -f deployment_nf.yaml"
+                    sh "kubectl apply -f deployment_wf.yaml"
+                    sh "kubectl apply -f redis.yaml"
+                    sh "kubectl apply -f seccon.yaml"
+                    sh "kubectl apply -f service_atn.yaml"
+                    sh "kubectl apply -f service_nf.yaml"
+                    sh "kubectl apply -f service_wf.yaml"
+                }
             }
 
             // Display all external ips
