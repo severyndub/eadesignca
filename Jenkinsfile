@@ -71,7 +71,6 @@ node {
         
         stage('Responses'){
             if(testResponses){
-                sh "primes 1 100 |gnuplot -p -e 'plot \"/dev/stdin\"'"
                 sh "chmod +x ${WORKSPACE}/measure_respone.sh"
                 sh "${WORKSPACE}/measure_respone.sh 'http://104.155.116.131:31916/allthenews?style=plain'"
                 return 0
