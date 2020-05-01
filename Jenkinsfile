@@ -192,7 +192,7 @@ node {
                     sh "kubectl apply -f service_nf.yaml"
                     sh "kubectl apply -f service_wf.yaml"
                     sh "kubectl apply -f service_atn.yaml"
-    
+
                     //Create firewall rules
                     createFirewallRule('31916')
                 }
@@ -220,7 +220,6 @@ node {
                     sh "kubectl apply -f deployment_wf.yaml"
                     sh "kubectl apply -f redis.yaml"
                     sh "kubectl apply -f seccon.yaml"
-                    sh "kubectl apply -f service_atn.yaml"
                     sh "kubectl apply -f service_nf.yaml"
                     sh "kubectl apply -f service_wf.yaml"
                 }
