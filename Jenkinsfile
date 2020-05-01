@@ -68,7 +68,13 @@ node {
             }
         }
         
-        if(justAksClean){
+        stage('Responses'){
+            sh "primes 1 100 |gnuplot -p -e 'plot \"/dev/stdin\"'"
+            sh "chmod +x ${WORKSPACE}/measure_respone.sh"
+            sh "${WORKSPACE}/measure_respone.sh 'http://104.155.116.131:31916/allthenews?style=plain'"
+        }
+
+        if(justAksClean){         
             echo "EXIT NOW!"
             return 0
         }
@@ -229,7 +235,12 @@ node {
 
             // Display all external ips
             sh "kubectl describe nodes | grep ExternalIP"
+        }
 
+        stage('Responses'){
+            sh "primes 1 100 |gnuplot -p -e 'plot \"/dev/stdin\"'"
+            sh "chmod +x ${WORKSPACE}/measure_respone.sh"
+            sh "${WORKSPACE}/measure_respone.sh 'http://104.155.116.131:31916/allthenews?style=plain'"
         }
 
     } catch (e) {
