@@ -25,6 +25,7 @@ node {
         buildAsync = params.BUILD_ASYNC
         buildSync = params.BUILD_SYNC
         justAksClean = params.JUST_AKS_CLEAN
+        buildLab = params.BUILD_LAB
 
         // Check if the build label is set
         if (buildImages) {
@@ -44,6 +45,7 @@ node {
             buildSync: '${buildSync}'
             buildAsync: '${buildAsync}'
             justAksClean: '${justAksClean}'
+            buildLab: '${buildLab}'
         """
 
         if(cleanAks) {
@@ -154,28 +156,28 @@ node {
                             pushDockerImage('newsfetcher')
                         }
                     }
+                }
+            }
 
-                    // Build for lab
-                    if(buildLab){
-                        dir('async/lab/door1'){
-                            buildDockerImage('door1')
-                        }
-                        dir('async/lab/door2'){
-                            buildDockerImage('door2')
-                        }
-                        dir('async/lab/door3'){
-                            buildDockerImage('door3')
-                        }
-                        dir('async/lab/seccon'){
-                            buildDockerImage('seccon')
-                        }
-                        if(pushImages){
-                            pushDockerImage('door1')
-                            pushDockerImage('door2')
-                            pushDockerImage('door3')
-                            pushDockerImage('seccon')
-                        }
-                    }
+            // Build for lab
+            if(buildLab){
+                dir('async/lab/door1'){
+                    buildDockerImage('door1')
+                }
+                dir('async/lab/door2'){
+                    buildDockerImage('door2')
+                }
+                dir('async/lab/door3'){
+                    buildDockerImage('door3')
+                }
+                dir('async/lab/seccon'){
+                    buildDockerImage('seccon')
+                }
+                if(pushImages){
+                    pushDockerImage('door1')
+                    pushDockerImage('door2')
+                    pushDockerImage('door3')
+                    pushDockerImage('seccon')
                 }
             }
         }
