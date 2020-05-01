@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
 
 ruleName='mscdevopsca-port'
-portNumber=$2
+portNumber=$1
 ruleFullName="${ruleName}-${portNumber}"
 result=0
-
-if [ -z ${ruleName} ]; then
-        echo rule name must be present
-        exit 1
-fi
 
 if [ -z ${portNumber} ]; then
         echo port number must be present

@@ -141,7 +141,7 @@ node {
                 sh "kubectl describe nodes | grep ExternalIP"
 
                 //Create firewall rules
-                createFirewallRules ('31916')
+                createFirewallRules('31916')
             }
 
         }
