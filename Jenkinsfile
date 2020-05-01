@@ -76,8 +76,8 @@ node {
         }
 
         def createFirewallRules = { rulePort ->
-            sh "chmod +x ${WORKSPCAE}/deployFirewallRules.sh"
-            sh "${WORKSPCAE}/deployFirewallRules.sh ${rulePort}"
+            sh "chmod +x ${WORKSPACE}/deployFirewallRules.sh"
+            sh "${WORKSPACE}/deployFirewallRules.sh ${rulePort}"
         }
 
         if(!cleanAks){
