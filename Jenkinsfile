@@ -120,8 +120,8 @@ node {
 
                 // Create deployments
                 sh "gcloud container clusters get-credentials mscdevopsk8s --zone europe-west1-b --project mscdevopscaauto"
-                sh "kubectl apply deployment_nf.yaml"
-                sh "kubectl apply deployment_wf.yaml"
+                sh "kubectl apply -f deployment_nf.yaml"
+                sh "kubectl apply -f deployment_wf.yaml"
                 sh "kubectl apply -f deployment_atn2.yaml"
                 sh "kubectl apply -f deployment_atn3.yaml"
                 
