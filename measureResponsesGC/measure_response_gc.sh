@@ -2,7 +2,6 @@
 
 url=$1
 buildNo=$2
-fileName=''
 
 if [ -z ${url} ]; then
     echo url must be given
@@ -17,7 +16,7 @@ main(){
 
 echo $url
 echo $buildNo
-$fileName = "eadesign_sync_${buildNo}"
+fileName="eadesign_sync_${buildNo}"
 echo $fileName
 URL="$url --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
 tries=1;
@@ -31,11 +30,11 @@ echo " Time_Connect Time_startTransfer Time_total ";
                 result=`curl $URL`
                 var=$(echo $result | awk -F":" '{print $1, $2, $3}')
                 set -- $var
-                total_connect+=("\\\"$1\\\",")
+                total_connect+=("\"$1\",")
                 total_start+=("$2,")
                 total_time+=("$3,")
                 ((tries++))
-                counter+=("\\\"$tries\\\"")
+                counter+=("\"$tries\"")
         done
 
 echo "${counter[@]}"
