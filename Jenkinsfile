@@ -270,7 +270,7 @@ node {
                         url: '']],
                     group: 'Plot Group eadesignCA',
                     title: 'Total connects',
-                    style: 'line',
+                    style: 'stackedArea',
                     exclZero: false,
                     keepRecords: false,
                     logarithmic: false,
