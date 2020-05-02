@@ -52,10 +52,10 @@ totalTimeOutput=$(echo "${total_time[@]}")
 totalTimeOutputFormated=${totalTimeOutput::-1}
 
 curl --location --request POST "$url" --header 'Content-Type: application/json' \
---data-raw "{\"filename\":\"total_connect_${fileName}.png\", \"plottype\":\"line\", \"x\":[${counterOutputFormated}], \"y\":[${totalConnectOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
+--data-raw "{\"filename\":\"total_connect_${fileName}.png\", \"plottype\":\"line\", \"x\":[${totalConnectOutputFormated}], \"y\":[${counterOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
 
 curl --location --request POST "$url" --header 'Content-Type: application/json' \
---data-raw "{\"filename\":\"total_start_transfer_${fileName}.png\", \"plottype\":\"line\", \"x\":[${counterOutputFormated}], \"y\":[${totalStartOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
+--data-raw "{\"filename\":\"total_start_transfer_${fileName}.png\", \"plottype\":\"line\", \"x\":[${totalStartOutputFormated}], \"y\":[${counterOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
 
 curl --location --request POST "$url" --header 'Content-Type: application/json' \
 --data-raw "{\"filename\":\"total_time_${fileName}.png\", \"plottype\":\"line\", \"x\":[${totalTimeOutputFormated}], \"y\":[${counterOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
