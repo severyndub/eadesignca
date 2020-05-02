@@ -290,7 +290,7 @@ node {
                     style: 'line',
                     exclZero: false,
                     keepRecords: false,
-                    logarithmic: false,
+                    logarithmic: true,
                     numBuilds: '',
                     useDescr: false,
                     yaxis: '',
