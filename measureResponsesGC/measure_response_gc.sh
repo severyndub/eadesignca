@@ -35,9 +35,9 @@ counter=()
                 ((tries++))
         done
 
-counterOutput= echo "${counter[@]}"
+counterOutput=$(echo "${counter[@]}")
 counterOutputFormated=${counterOutput::-1}
-totalConnectOutput= echo "${total_connect[@]}"
+totalConnectOutput=$(echo "${total_connect[@]}")
 totalConnectOutputFormated=${totalConnectOutput::-1}
 # echo "${total_connect[@]}" >> ./total_connect.csv
 # echo "${total_start[@]}" >> ./total_start.csv
