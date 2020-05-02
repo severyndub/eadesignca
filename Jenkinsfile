@@ -289,7 +289,7 @@ node {
                         url: '']],
                     group: 'Plot Group eadesignCA',
                     title: 'Total time',
-                    style: 'bar',
+                    style: 'stackedBar',
                     exclZero: false,
                     keepRecords: false,
                     logarithmic: false,
