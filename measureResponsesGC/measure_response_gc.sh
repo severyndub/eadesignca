@@ -33,12 +33,12 @@ echo " Time_Connect Time_startTransfer Time_total ";
                 total_connect+=("\\\"$1\\\",")
                 total_start+=("$2,")
                 total_time+=("$3,")
-                ((tries++))
                 counter+=("\\\"$tries\\\",")
+                ((tries++))
         done
 
-echo "${counter[@]}"
-echo "${total_connect[@]}"
+counterOutput= echo "${counter[@]}"
+totalConnectOutput= echo "${total_connect[@]}"
 # echo "${total_connect[@]}" >> ./total_connect.csv
 # echo "${total_start[@]}" >> ./total_start.csv
 # echo "${total_time[@]}" >> ./total_time.csv
@@ -47,8 +47,8 @@ echo "${total_connect[@]}"
 #echo "average time taken: `echo "scale=10; $total_time/100" | bc`";
 
 
-# curl --location --request POST "$url" --header 'Content-Type: application/json' \
-# --data-raw "{\"filename\":\"total_connect_${fileName}.png\", \"plottype\":\"line\", \"x\":[${counter[@]}], \"y\":[${total_connect[@]}], \"ylab\":[\"first line\", \"second line\"]}"
+curl --location --request POST "$url" --header 'Content-Type: application/json' \
+--data-raw "{\"filename\":\"total_connect_${fileName}.png\", \"plottype\":\"line\", \"x\":[${counterOutput}], \"y\":[${totalConnectOutput}], \"ylab\":[\"first line\", \"second line\"]}"
 
 #curl --location --request POST "$url" --header 'Content-Type: application/json' \
 #--data-raw "{\"filename\":\"${buildNo}name.png\", \"plottype\":\"line\", \"x\":[\"1\", \"2\", \"3\", \"4\", \"5\"], \"y\":[\"10\", \"8\", \"6\", \"15\", \"22\", \"0\", \"10\", \"8\", \"6\", \"15\"], \"ylab\":[\"first line\", \"second line\"]}"
