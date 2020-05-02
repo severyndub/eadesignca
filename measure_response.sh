@@ -19,8 +19,8 @@ echo " Time_Connect Time_startTransfer Time_total ";
                 set -- $var
 
                 total_connect+=("$1,$count")
-                total_start+=("$2,")
-                total_time+=("$3,")
+                total_start+=("$count,$2,")
+                total_time+=("'time',$3,")
                 ((count--))
         done
 echo "${total_connect[@]}" >> /var/lib/jenkins/workspace/eadesignca/total_connect.csv
