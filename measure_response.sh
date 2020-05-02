@@ -70,7 +70,7 @@ echo "average time connect: `echo "scale=10; $total_connect/100" | bc`";
 echo "average time start: `echo "scale=10; $total_start/100" | bc`";
 echo "average time taken: `echo "scale=10; $total_time/100" | bc`";
 
-echo "`echo "scale=10; $total_connect/100" | bc`"; ./total_connect_avg.csv
+echo "`echo "scale=10; $total_connect/100" | bc`" >> ./total_connect_avg.csv
 
 }
 
