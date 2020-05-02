@@ -18,10 +18,9 @@ echo " Time_Connect Time_startTransfer Time_total ";
                 var=$(echo $result | awk -F":" '{print $1, $2, $3}')
                 set -- $var
 
-                total_connect+=("$1,")
-                total_start+=("$2,")
-                total_time+=("$3,")
-                echo $tries
+                total_connect+=("$1")
+                total_start+=("$2")
+                total_time+=("$3")
                 ((tries--))
         done
 echo "${total_connect[@]}" >> ./total_connect.csv
