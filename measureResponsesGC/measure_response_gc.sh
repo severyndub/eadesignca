@@ -64,7 +64,7 @@ counter=()
 
 
 read n
-arr=($(total_connect)) 
+arr=($total_connect) 
 arr=${arr[*]}
 printf "%.3f" $(echo $((${arr// /+}))/$n | bc -l)
 
