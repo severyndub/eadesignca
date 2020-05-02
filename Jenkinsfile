@@ -238,7 +238,6 @@ node {
             if(testResponses){
                 sh "chmod +x ${WORKSPACE}/measure_response.sh"
                 sh "${WORKSPACE}/measure_response.sh 'http://104.155.116.131:31916/allthenews?style=plain'"
-                sh "cat ${WORKSPACE}/total_start.csv"
                 echo "Generate a plot total starts"
                 //Generate a plot
                 plot csvFileName: 'plot-8e54e334-ab7b-4c9f-94f7-b9d8965723df.csv', 
@@ -259,6 +258,26 @@ node {
                     yaxis: '',
                     yaxisMaximum: '',
                     yaxisMinimum: ''
+                
+                plot csvFileName: 'plot-8e54e334-ab7b-4c9f-93f6-g9e8965734eg.csv', 
+                    csvSeries: [[
+                        file: "total_connect.csv",
+                        exclusionValues: '',
+                        displayTableFlag: false,
+                        inclusionFlag: 'OFF',
+                        url: '']],
+                    group: 'Plot Group eadesignCA',
+                    title: 'Total starts',
+                    style: 'line',
+                    exclZero: false,
+                    keepRecords: false,
+                    logarithmic: false,
+                    numBuilds: '',
+                    useDescr: false,
+                    yaxis: '',
+                    yaxisMaximum: '',
+                    yaxisMinimum: ''
+
             }
         }
 
