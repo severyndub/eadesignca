@@ -19,9 +19,6 @@ echo $buildNo
 
 URL="$url --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
 tries=0;
-avg_total_connect=0
-avg_total_start=0
-avg_total_time=0
 total_connect=()
 total_start=()
 total_time=()
@@ -33,11 +30,6 @@ counter=()
                 total_connect+=("$1,")
                 total_start+=("$2,")
                 total_time+=("$3,")
-
-                avg_total_connect=`echo "scale=10; $avg_total_connect+ $1" | bc`;
-                avg_total_start=`echo "scale=10; $avg_total_start+ $2" | bc`;
-                avg_total_time=`echo "scale=10; $avg_total_time+ $3" | bc`;
-
                 counter+=("\"$tries\",")
                 ((tries++))
         done
@@ -70,26 +62,10 @@ curl --location --request POST "$url" --header 'Content-Type: application/json' 
 curl --location --request POST "$url" --header 'Content-Type: application/json' \
 --data-raw "{\"filename\":\"total_time_${buildNo}.png\", \"plottype\":\"line\", \"x\":[${totalTimeOutputFormated}], \"y\":[${counterOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
 
-# Average
-avgTimeConn=$(echo "`echo "scale=10; $total_connect/100" | bc`")
-avgStartTime=$(echo "`echo "scale=10; $total_start/100" | bc`")
-avgTakenTime=$(echo "`echo "scale=10; $total_time/100" | bc`")
-
-echo $avgTimeConn
-echo $avgStartTime
-echo $avgTakenTime
-
-
-curl --location --request POST "$url" --header 'Content-Type: application/json' \
---data-raw "{\"filename\":\"average_time_${buildNo}.png\", \"plottype\":\"line\", \"x\":[\"averagetimeconn\",\"averagestarttime\",\"averagetakentime\"], \"y\":[${avgTimeConn},${avgStartTime},${avgTakenTime}], \"ylab\":[\"first line\", \"second line\"]}"
-
-
-
 echo "\n"
 echo "https://storage.cloud.google.com/eadesignca1/total_connect_${buildNo}.png"
 echo "https://storage.cloud.google.com/eadesignca1/total_start_transfer_${buildNo}.png"
 echo "https://storage.cloud.google.com/eadesignca1/total_time_${buildNo}.png"
-echo "https://storage.cloud.google.com/eadesignca1/average_time_${buildNo}.png"
 
 }
 
