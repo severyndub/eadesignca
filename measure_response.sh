@@ -19,6 +19,7 @@ echo " Time_Connect Time_startTransfer Time_total ";
                 set -- $var
 
                 total_connect+=("$1,$count")
+                echo($1,$count)
                 total_start+=("$count,$2,")
                 total_time+=("'time',$3,")
                 ((count--))
