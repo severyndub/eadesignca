@@ -241,7 +241,7 @@ node {
                 //Generate a plot
                 plot csvFileName: 'plot-8e54e334-ab7b-4c9f-94f7-b9d8965723df.csv', 
                     csvSeries: [[
-                        file: './total_start.csv',
+                        file: 'total_start.csv',
                         exclusionValues: '',
                         displayTableFlag: false,
                         inclusionFlag: 'OFF',
