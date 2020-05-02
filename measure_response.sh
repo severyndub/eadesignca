@@ -18,8 +18,8 @@ echo " Time_Connect Time_startTransfer Time_total ";
                 var=$(echo $result | awk -F":" '{print $1, $2, $3}')
                 set -- $var
 
-                total_connect+=("$1,")
-                total_start+=("$count,$2,")
+                total_connect+=("'time',$1,")
+                total_start+=("'time',$2,")
                 total_time+=("'time',$3,")
                 ((count--))
         done
