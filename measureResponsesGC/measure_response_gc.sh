@@ -42,14 +42,17 @@ counterOutputFormated=${counterOutput::-1}
 # Total time connect
 totalConnectOutput=$(echo "${total_connect[@]}")
 totalConnectOutputFormated=${totalConnectOutput::-1}
+echo $totalConnectOutputFormated
 
 # Total start transfer
 totalStartOutput=$(echo "${total_start[@]}")
 totalStartOutputFormated=${totalStartOutput::-1}
+echo $totalStartOutputFormated
 
 # Total time
 totalTimeOutput=$(echo "${total_time[@]}")
 totalTimeOutputFormated=${totalTimeOutput::-1}
+echo $totalTimeOutputFormated
 
 curl --location --request POST "$url" --header 'Content-Type: application/json' \
 --data-raw "{\"filename\":\"total_connect_${fileName}.png\", \"plottype\":\"line\", \"x\":[${totalConnectOutputFormated}], \"y\":[${counterOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
