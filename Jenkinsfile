@@ -231,17 +231,19 @@ node {
             // Display all external ips
             sh "kubectl describe nodes | grep ExternalIP"
         }
+        
+        
 
         stage('Responses'){
             if(testResponses){
                 sh "chmod +x ${WORKSPACE}/measure_response.sh"
                 sh "${WORKSPACE}/measure_response.sh 'http://104.155.116.131:31916/allthenews?style=plain'"
-
+                sh "cat ${WORKSPACE}/testplot/total_start.csv"
                 echo "Generate a plot total starts"
                 //Generate a plot
                 plot csvFileName: 'plot-8e54e334-ab7b-4c9f-94f7-b9d8965723df.csv', 
                     csvSeries: [[
-                        file: 'total_start.csv',
+                        file: "${WORKSPACE}/testplot/total_start.csv",
                         exclusionValues: '',
                         displayTableFlag: false,
                         inclusionFlag: 'OFF',
