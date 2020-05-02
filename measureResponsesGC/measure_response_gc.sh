@@ -30,11 +30,11 @@ echo " Time_Connect Time_startTransfer Time_total ";
                 result=`curl $URL`
                 var=$(echo $result | awk -F":" '{print $1, $2, $3}')
                 set -- $var
-                total_connect+=("\"$1\",")
+                total_connect+=("\\\"$1\\\",")
                 total_start+=("$2,")
                 total_time+=("$3,")
                 ((tries++))
-                counter+=("\"$tries\",")
+                counter+=("\\\"$tries\\\",")
         done
 
 echo "${counter[@]}"
@@ -49,6 +49,9 @@ echo "${total_connect[@]}"
 
 # curl --location --request POST "$url" --header 'Content-Type: application/json' \
 # --data-raw "{\"filename\":\"total_connect_${fileName}.png\", \"plottype\":\"line\", \"x\":[${counter[@]}], \"y\":[${total_connect[@]}], \"ylab\":[\"first line\", \"second line\"]}"
+
+#curl --location --request POST "$url" --header 'Content-Type: application/json' \
+#--data-raw "{\"filename\":\"${buildNo}name.png\", \"plottype\":\"line\", \"x\":[\"1\", \"2\", \"3\", \"4\", \"5\"], \"y\":[\"10\", \"8\", \"6\", \"15\", \"22\", \"0\", \"10\", \"8\", \"6\", \"15\"], \"ylab\":[\"first line\", \"second line\"]}"
 
 echo "\n"
 echo "https://storage.cloud.google.com/eadesignca1/total_connect_${fileName}.png"
