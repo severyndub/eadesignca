@@ -45,7 +45,8 @@ totalConnectOutputFormated=${totalConnectOutput::-1}
 #echo "average time connect: `echo "scale=10; $total_connect/100" | bc`";
 #echo "average time start: `echo "scale=10; $total_start/100" | bc`";
 #echo "average time taken: `echo "scale=10; $total_time/100" | bc`";
-
+echo ${counterOutputFormated}
+echo ${totalConnectOutputFormated}
 
 curl --location --request POST "$url" --header 'Content-Type: application/json' \
 --data-raw "{\"filename\":\"total_connect_${fileName}.png\", \"plottype\":\"line\", \"x\":[${counterOutputFormated}], \"y\":[${totalConnectOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
