@@ -28,10 +28,10 @@ counter=()
                 result=`curl $URL`
                 var=$(echo $result | awk -F":" '{print $1, $2, $3}')
                 set -- $var
-                total_connect+=("\\\"$1\\\",")
+                total_connect+=("\"$1\",")
                 total_start+=("$2,")
                 total_time+=("$3,")
-                counter+=("\\\"$tries\\\",")
+                counter+=("\"$tries\",")
                 ((tries++))
         done
 
