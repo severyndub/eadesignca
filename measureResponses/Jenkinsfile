@@ -11,7 +11,8 @@ node {
 
         echo """Parameters:
             branch: '${branch}'
-            siteUrl: '${siteUrl}' 
+            siteUrl: '${siteUrl}'
+            workspace: '${WORKSPACE}'
         """
 
         // Triggers measure_response.sh, takes in site url
