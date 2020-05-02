@@ -95,7 +95,7 @@ node {
         throw e
     } finally {
         // Recursively delete the current directory from the workspace
-        //deleteDir()
+        deleteDir()
         echo "Build done."
     }
 }
