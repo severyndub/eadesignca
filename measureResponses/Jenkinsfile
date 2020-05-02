@@ -15,7 +15,7 @@ node {
         """
 
         // Triggers measure_response.sh, takes in site url
-        def generateResponses(){ url ->
+        def generateResponses = { url ->
             sh "chmod +x ${WORKSPACE}/measure_response.sh"
             sh "${WORKSPACE}/measure_response.sh ${url}"
         }
