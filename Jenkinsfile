@@ -76,9 +76,9 @@ node {
 
         stage("Pull Source") {
             //trying to get the hash without checkout gets the hash set in previous build.
-                def checkout = checkout scm
-                env.COMMIT_HASH = checkout.GIT_COMMIT
-                echo "Checkout done; Hash: '${env.COMMIT_HASH}'"
+            def checkout = checkout scm
+            env.COMMIT_HASH = checkout.GIT_COMMIT
+            echo "Checkout done; Hash: '${env.COMMIT_HASH}'"
         }
 
         def loginGCDocker = {
@@ -230,76 +230,6 @@ node {
 
             // Display all external ips
             sh "kubectl describe nodes | grep ExternalIP"
-        }
-        
-        
-
-        stage('Responses'){
-            if(testResponses){
-                def url1 = 'http://104.155.116.131:31916/allthenews?style=plain'
-                sh "chmod +x ${WORKSPACE}/measure_response.sh"
-                sh "${WORKSPACE}/measure_response.sh ${url1}"
-                echo "Generate a plot total starts"
-                //Generate a plot
-
-                plot csvFileName: 'plot-8e54e334-ab7b-4c9f-94f7-b9d8965723df.csv', 
-                    csvSeries: [[
-                        file: "total_start.csv",
-                        exclusionValues: '',
-                        displayTableFlag: false,
-                        inclusionFlag: 'OFF',
-                        url: '']],
-                    group: 'Plot Group eadesignCA',
-                    title: 'Total starts',
-                    style: 'line',
-                    exclZero: false,
-                    keepRecords: false,
-                    logarithmic: false,
-                    numBuilds: '10',
-                    useDescr: false,
-                    yaxis: 'Responses',
-                    yaxisMaximum: '',
-                    yaxisMinimum: ''
-                
-                plot csvFileName: 'plot-8e54e334-ab7b-4c9f-93f6-g9e8965734eg.csv', 
-                    csvSeries: [[
-                        file: "total_connect.csv",
-                        exclusionValues: '',
-                        displayTableFlag: false,
-                        inclusionFlag: 'OFF',
-                        url: '']],
-                    group: 'Plot Group eadesignCA',
-                    title: 'Total connects',
-                    style: 'line',
-                    exclZero: false,
-                    keepRecords: false,
-                    logarithmic: false,
-                    numBuilds: '10',
-                    useDescr: false,
-                    yaxis: 'Responses',
-                    yaxisMaximum: '',
-                    yaxisMinimum: ''
-                
-                plot csvFileName: 'plot-8e54e334-ab7b-4c9f-10f7-b9d8965745fh.csv', 
-                    csvSeries: [[
-                        file: "total_time.csv",
-                        exclusionValues: '',
-                        displayTableFlag: false,
-                        inclusionFlag: 'OFF',
-                        url: '']],
-                    group: 'Plot Group eadesignCA',
-                    title: 'Total time',
-                    style: 'stackedBar',
-                    exclZero: false,
-                    keepRecords: false,
-                    logarithmic: false,
-                    numBuilds: '10',
-                    useDescr: false,
-                    yaxis: 'Responses',
-                    yaxisMaximum: '',
-                    yaxisMinimum: ''
-
-            }
         }
 
     } catch (e) {
