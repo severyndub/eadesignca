@@ -45,9 +45,13 @@ echo $buildNo
 # Construct curl
 #curl -i -H 'Accept: application/json' -H 'Content-Type:application/json' -X POST --data '{'filename':'${buildNo}name.png', 'plottype':'line', 'x':['1', '2', '3', '4', '5'], 'y':['10', '8', '6', '15', '22', '0', '10', '8', '6', '15'], 'ylab':['first line', 'second line']}' $url
 
-curl --location --request POST "$url" \
+curl --location --request POST 'https://europe-west2-mscdevopscaauto.cloudfunctions.net/plotFunc' \
 --header 'Content-Type: application/json' \
---data-raw '{"filename":'${buildNo}'name.png, "plottype":"line", "x":["1", "2", "3", "4", "5"], "y":["10", "8", "6", "15", "22", "0", "10", "8", "6", "15"], "ylab":["first line", "second line"]}'
+--data-raw '{"filename":"fname.png", "plottype":"line", "x":["1", "2", "3", "4", "5"], "y":["10", "8", "6", "15", "22", "0", "10", "8", "6", "15"], "ylab":["first line", "second line"]}'
+
+# curl --location --request POST "$url" \
+# --header 'Content-Type: application/json' \
+# --data-raw '{"filename":'${buildNo}'name.png, "plottype":"line", "x":["1", "2", "3", "4", "5"], "y":["10", "8", "6", "15", "22", "0", "10", "8", "6", "15"], "ylab":["first line", "second line"]}'
 
 
 # wget --no-check-certificate --quiet \
