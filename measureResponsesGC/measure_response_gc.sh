@@ -35,9 +35,6 @@ counter=()
                 ((tries++))
         done
 
-echo "${#counter[0]}" 
-echo "${#total_connect[0]}" 
-
 counterOutput= echo "${counter[@]}"
 totalConnectOutput= echo "${total_connect[@]}"
 # echo "${total_connect[@]}" >> ./total_connect.csv
@@ -49,7 +46,7 @@ totalConnectOutput= echo "${total_connect[@]}"
 
 
 curl --location --request POST "$url" --header 'Content-Type: application/json' \
---data-raw "{\"filename\":\"total_connect_${fileName}.png\", \"plottype\":\"line\", \"x\":[${counterOutput}], \"y\":[${totalConnectOutput}], \"ylab\":[\"first line\", \"second line\"]}"
+--data-raw "{\"filename\":\"total_connect_${fileName}.png\", \"plottype\":\"line\", \"x\":[${counterOutput::-1}], \"y\":[${totalConnectOutput::-1}], \"ylab\":[\"first line\", \"second line\"]}"
 
 #curl --location --request POST "$url" --header 'Content-Type: application/json' \
 #--data-raw "{\"filename\":\"${buildNo}name.png\", \"plottype\":\"line\", \"x\":[\"1\", \"2\", \"3\", \"4\", \"5\"], \"y\":[\"10\", \"8\", \"6\", \"15\", \"22\", \"0\", \"10\", \"8\", \"6\", \"15\"], \"ylab\":[\"first line\", \"second line\"]}"
