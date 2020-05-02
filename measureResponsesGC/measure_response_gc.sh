@@ -19,6 +19,9 @@ echo $buildNo
 
 URL="$url --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
 tries=0;
+avg_total_connect=0
+avg_total_start=0
+avg_total_time=0
 total_connect=()
 total_start=()
 total_time=()
@@ -30,6 +33,11 @@ counter=()
                 total_connect+=("$1,")
                 total_start+=("$2,")
                 total_time+=("$3,")
+
+                avg_total_connect=`echo "scale=10; $avg_total_connect+ $1" | bc`;
+                avg_total_start=`echo "scale=10; $avg_total_start+ $2" | bc`;
+                avg_total_time=`echo "scale=10; $avg_total_time+ $3" | bc`;
+
                 counter+=("\"$tries\",")
                 ((tries++))
         done
@@ -63,10 +71,9 @@ curl --location --request POST "$url" --header 'Content-Type: application/json' 
 --data-raw "{\"filename\":\"total_time_${buildNo}.png\", \"plottype\":\"line\", \"x\":[${totalTimeOutputFormated}], \"y\":[${counterOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
 
 # Average
-
-avgTimeConn=$(echo "average time connect: `echo "scale=10; $total_connect/100" | bc`";)
-avgStartTime=$(echo "average time start: `echo "scale=10; $total_start/100" | bc`";)
-avgTakenTime=$(echo "average time taken: `echo "scale=10; $total_time/100" | bc`";)
+avgTimeConn=$(echo "`echo "scale=10; $total_connect/100" | bc`")
+avgStartTime=$(echo "`echo "scale=10; $total_start/100" | bc`")
+avgTakenTime=$(echo "`echo "scale=10; $total_time/100" | bc`")
 
 echo $avgTimeConn
 echo $avgStartTime
