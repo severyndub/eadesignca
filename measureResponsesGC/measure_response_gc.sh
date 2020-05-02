@@ -16,7 +16,7 @@ main(){
 
 echo $url
 echo $buildNo
-fileName = "eadesign_sync_${buildNo}"
+$fileName = "eadesign_sync_${buildNo}"
 echo $fileName
 URL="$url --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
 tries=1;
