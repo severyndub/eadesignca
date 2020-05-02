@@ -4,7 +4,7 @@
 
 main(){
 
-#URL="http://104.155.116.131:31916/allthenews?style=plain --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
+URL="http://104.155.116.131:31916/allthenews?style=plain --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
 # tries=100;
 # total_connect=()
 # total_start=()
@@ -41,11 +41,11 @@ main(){
 
 
 #################################################### KEEP old ver #############################################
-url=$1
+#url=$1
 
 
 
-URL="${url} --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
+#URL="${url} --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
 tries=100;
 total_connect=0
 total_start=0
