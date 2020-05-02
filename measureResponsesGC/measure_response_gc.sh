@@ -2,6 +2,7 @@
 
 url=$1
 buildNo=$2
+fileName=''
 
 if [ -z ${url} ]; then
     echo url must be given
@@ -30,15 +31,15 @@ echo " Time_Connect Time_startTransfer Time_total ";
                 result=`curl $URL`
                 var=$(echo $result | awk -F":" '{print $1, $2, $3}')
                 set -- $var
-                total_connect+=("\\"$1\\",")
+                total_connect+=("\\\"$1\\\",")
                 total_start+=("$2,")
                 total_time+=("$3,")
                 ((tries++))
-                counter+=("\\"$tries\\"")
+                counter+=("\\\"$tries\\\"")
         done
 
-#echo "${counter[@]}"
-#echo "${total_connect[@]}"
+echo "${counter[@]}"
+echo "${total_connect[@]}"
 # echo "${total_connect[@]}" >> ./total_connect.csv
 # echo "${total_start[@]}" >> ./total_start.csv
 # echo "${total_time[@]}" >> ./total_time.csv
