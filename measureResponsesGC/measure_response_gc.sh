@@ -34,7 +34,7 @@ echo " Time_Connect Time_startTransfer Time_total ";
                 total_start+=("$2,")
                 total_time+=("$3,")
                 ((tries++))
-                counter+=("\"$tries\"")
+                counter+=("\"$tries\",")
         done
 
 echo "${counter[@]}"
@@ -47,8 +47,8 @@ echo "${total_connect[@]}"
 #echo "average time taken: `echo "scale=10; $total_time/100" | bc`";
 
 
-curl --location --request POST "$url" --header 'Content-Type: application/json' \
---data-raw "{\"filename\":\"total_connect_${fileName}.png\", \"plottype\":\"line\", \"x\":[${counter[@]}], \"y\":[${total_connect[@]}], \"ylab\":[\"first line\", \"second line\"]}"
+# curl --location --request POST "$url" --header 'Content-Type: application/json' \
+# --data-raw "{\"filename\":\"total_connect_${fileName}.png\", \"plottype\":\"line\", \"x\":[${counter[@]}], \"y\":[${total_connect[@]}], \"ylab\":[\"first line\", \"second line\"]}"
 
 echo "\n"
 echo "https://storage.cloud.google.com/eadesignca1/total_connect_${fileName}.png"
