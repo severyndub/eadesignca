@@ -35,24 +35,37 @@ counter=()
                 ((tries++))
         done
 
+# Record counter
 counterOutput=$(echo "${counter[@]}")
 counterOutputFormated=${counterOutput::-1}
+
+# Total time connect
 totalConnectOutput=$(echo "${total_connect[@]}")
 totalConnectOutputFormated=${totalConnectOutput::-1}
-# echo "${total_connect[@]}" >> ./total_connect.csv
-# echo "${total_start[@]}" >> ./total_start.csv
-# echo "${total_time[@]}" >> ./total_time.csv
-#echo "average time connect: `echo "scale=10; $total_connect/100" | bc`";
-#echo "average time start: `echo "scale=10; $total_start/100" | bc`";
-#echo "average time taken: `echo "scale=10; $total_time/100" | bc`";
-echo ${counterOutputFormated}
-echo ${totalConnectOutputFormated}
+
+# Total start transfer
+totalStartOutput=$(echo "${total_start[@]}")
+totalStartOutputFormated=${totalStartOutput::-1}
+
+# Total time
+totalTimeOutput=$(echo "${total_time[@]}")
+totalTimeOutputFormated=${totalTimeOutput::-1}
 
 curl --location --request POST "$url" --header 'Content-Type: application/json' \
 --data-raw "{\"filename\":\"total_connect_${fileName}.png\", \"plottype\":\"line\", \"x\":[${counterOutputFormated}], \"y\":[${totalConnectOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
 
-#curl --location --request POST "$url" --header 'Content-Type: application/json' \
-#--data-raw "{\"filename\":\"${buildNo}name.png\", \"plottype\":\"line\", \"x\":[\"1\", \"2\", \"3\", \"4\", \"5\"], \"y\":[\"10\", \"8\", \"6\", \"15\", \"22\", \"0\", \"10\", \"8\", \"6\", \"15\"], \"ylab\":[\"first line\", \"second line\"]}"
+curl --location --request POST "$url" --header 'Content-Type: application/json' \
+--data-raw "{\"filename\":\"total_start_transfer_${fileName}.png\", \"plottype\":\"line\", \"x\":[${counterOutputFormated}], \"y\":[${totalStartOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
+
+curl --location --request POST "$url" --header 'Content-Type: application/json' \
+--data-raw "{\"filename\":\"total_time_${fileName}.png\", \"plottype\":\"line\", \"x\":[${counterOutputFormated}], \"y\":[${totalTimeOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
+
+# Average
+
+#echo "average time connect: `echo "scale=10; $total_connect/100" | bc`";
+#echo "average time start: `echo "scale=10; $total_start/100" | bc`";
+#echo "average time taken: `echo "scale=10; $total_time/100" | bc`";
+
 
 echo "\n"
 echo "https://storage.cloud.google.com/eadesignca1/total_connect_${fileName}.png"
