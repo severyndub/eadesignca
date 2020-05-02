@@ -45,9 +45,9 @@ echo $buildNo
 # Construct curl
 #curl -i -H 'Accept: application/json' -H 'Content-Type:application/json' -X POST --data '{'filename':'${buildNo}name.png', 'plottype':'line', 'x':['1', '2', '3', '4', '5'], 'y':['10', '8', '6', '15', '22', '0', '10', '8', '6', '15'], 'ylab':['first line', 'second line']}' $url
 
-curl --location --request POST 'https://europe-west2-mscdevopscaauto.cloudfunctions.net/plotFunc' \
+curl --location --request POST "$url" \
 --header 'Content-Type: application/json' \
---data-raw '{"filename":"fname.png", "plottype":"line", "x":["1", "2", "3", "4", "5"], "y":["10", "8", "6", "15", "22", "0", "10", "8", "6", "15"], "ylab":["first line", "second line"]}'
+--data-raw '{"filename":"gname.png", "plottype":"line", "x":["1", "2", "3", "4", "5"], "y":["10", "8", "6", "15", "22", "0", "10", "8", "6", "15"], "ylab":["first line", "second line"]}'
 
 # curl --location --request POST "$url" \
 # --header 'Content-Type: application/json' \
@@ -60,6 +60,8 @@ curl --location --request POST 'https://europe-west2-mscdevopscaauto.cloudfuncti
 #   --header 'Content-Type: application/json' \
 #   --body-data '{"filename":"${buildNo}name.png", "plottype":"line", "x":["1", "2", "3", "4", "5"], "y":["10", "8", "6", "15", "22", "0", "10", "8", "6", "15"], "ylab":["first line", "second line"]}' \
 #   "$url"
+
+echo "https://storage.cloud.google.com/eadesignca1/${buildNo}name.png"
 
 }
 
