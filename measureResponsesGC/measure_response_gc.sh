@@ -69,7 +69,7 @@ avgStartTime=$(echo "average time start: `echo "scale=10; $total_start/100" | bc
 avgTakenTime=$(echo "average time taken: `echo "scale=10; $total_time/100" | bc`";)
 
 curl --location --request POST "$url" --header 'Content-Type: application/json' \
---data-raw "{\"filename\":\"average_time_${buildNo}.png\", \"plottype\":\"line\", \"x\":["averagetimeconn","averagestarttime","averagetakentime"], \"y\":["${avgTimeConn}","${avgStartTime}","${avgTakenTime}"], \"ylab\":[\"first line\", \"second line\"]}"
+--data-raw "{\"filename\":\"average_time_${buildNo}.png\", \"plottype\":\"line\", \"x\":[\"averagetimeconn\",\"averagestarttime\",\"averagetakentime\"], \"y\":[${avgTimeConn},${avgStartTime},${avgTakenTime}], \"ylab\":[\"first line\", \"second line\"]}"
 
 
 
