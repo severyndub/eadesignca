@@ -242,47 +242,28 @@ node {
                 echo "Generate a plot total starts"
                 //Generate a plot
 
-                // plot csvFileName: 'plot-8e54e334-ab7b-4c9f-94f7-b9d8965723df.csv', 
-                //     csvSeries: [[
-                //         file: "avg_reponse_time.csv",
-                //         exclusionValues: '',
-                //         displayTableFlag: false,
-                //         inclusionFlag: 'OFF',
-                //         url: '']],
-                //     group: 'Plot Group eadesignCA',
-                //     title: 'Total starts',
-                //     style: 'line',
-                //     exclZero: false,
-                //     keepRecords: false,
-                //     logarithmic: false,
-                //     numBuilds: '10',
-                //     useDescr: false,
-                //     yaxis: 'Responses',
-                //     yaxisMaximum: '',
-                //     yaxisMinimum: ''
-
-                // plot csvFileName: 'plot-8e54e334-ab7b-4c9f-94f7-b9d8965723df.csv', 
-                //     csvSeries: [[
-                //         file: "total_start.csv",
-                //         exclusionValues: '',
-                //         displayTableFlag: false,
-                //         inclusionFlag: 'OFF',
-                //         url: '']],
-                //     group: 'Plot Group eadesignCA',
-                //     title: 'Total starts',
-                //     style: 'line',
-                //     exclZero: false,
-                //     keepRecords: false,
-                //     logarithmic: false,
-                //     numBuilds: '10',
-                //     useDescr: false,
-                //     yaxis: 'Responses',
-                //     yaxisMaximum: '',
-                //     yaxisMinimum: ''
+                plot csvFileName: 'plot-8e54e334-ab7b-4c9f-94f7-b9d8965723df.csv', 
+                    csvSeries: [[
+                        file: "total_start.csv",
+                        exclusionValues: '',
+                        displayTableFlag: false,
+                        inclusionFlag: 'OFF',
+                        url: '']],
+                    group: 'Plot Group eadesignCA',
+                    title: 'Total starts',
+                    style: 'line',
+                    exclZero: false,
+                    keepRecords: false,
+                    logarithmic: false,
+                    numBuilds: '10',
+                    useDescr: false,
+                    yaxis: 'Responses',
+                    yaxisMaximum: '',
+                    yaxisMinimum: ''
                 
                 plot csvFileName: 'plot-8e54e334-ab7b-4c9f-93f6-g9e8965734eg.csv', 
                     csvSeries: [[
-                        file: "total_connect_avg.csv",
+                        file: "total_connect.csv",
                         exclusionValues: '',
                         displayTableFlag: false,
                         inclusionFlag: 'OFF',
@@ -293,30 +274,30 @@ node {
                     exclZero: false,
                     keepRecords: false,
                     logarithmic: false,
-                    numBuilds: '',
+                    numBuilds: '10',
                     useDescr: false,
-                    yaxis: '',
+                    yaxis: 'Responses',
                     yaxisMaximum: '',
                     yaxisMinimum: ''
                 
-                // plot csvFileName: 'plot-8e54e334-ab7b-4c9f-10f7-b9d8965745fh.csv', 
-                //     csvSeries: [[
-                //         file: "total_time.csv",
-                //         exclusionValues: '',
-                //         displayTableFlag: false,
-                //         inclusionFlag: 'OFF',
-                //         url: '']],
-                //     group: 'Plot Group eadesignCA',
-                //     title: 'Total time',
-                //     style: 'line',
-                //     exclZero: false,
-                //     keepRecords: false,
-                //     logarithmic: true,
-                //     numBuilds: '',
-                //     useDescr: false,
-                //     yaxis: '',
-                //     yaxisMaximum: '',
-                //     yaxisMinimum: ''
+                plot csvFileName: 'plot-8e54e334-ab7b-4c9f-10f7-b9d8965745fh.csv', 
+                    csvSeries: [[
+                        file: "total_time.csv",
+                        exclusionValues: '',
+                        displayTableFlag: false,
+                        inclusionFlag: 'OFF',
+                        url: '']],
+                    group: 'Plot Group eadesignCA',
+                    title: 'Total time',
+                    style: 'line',
+                    exclZero: false,
+                    keepRecords: false,
+                    logarithmic: true,
+                    numBuilds: '10',
+                    useDescr: false,
+                    yaxis: 'Responses',
+                    yaxisMaximum: '',
+                    yaxisMinimum: ''
 
             }
         }

@@ -63,14 +63,16 @@ echo " Time_Connect Time_startTransfer Time_total ";
                 total_time=`echo "scale=10; $total_time + $3" | bc`;
                 ((tries--))
         done
-echo $total_connect
-echo $total_start
-echo $total_time
-echo "average time connect: `echo "scale=10; $total_connect/100" | bc`";
-echo "average time start: `echo "scale=10; $total_start/100" | bc`";
-echo "average time taken: `echo "scale=10; $total_time/100" | bc`";
+# echo $total_connect
+# echo $total_start
+# echo $total_time
+# echo "average time connect: `echo "scale=10; $total_connect/100" | bc`";
+# echo "average time start: `echo "scale=10; $total_start/100" | bc`";
+# echo "average time taken: `echo "scale=10; $total_time/100" | bc`";
 
-echo "`echo "scale=10; $total_connect/100" | bc`" >> ./total_connect_avg.csv
+echo "`echo "scale=10; $total_connect/100" | bc`," >> ./total_connect.csv
+echo "`echo "scale=10; $total_start/100" | bc`," >> ./total_start.csv
+echo "`echo "scale=10; $total_time/100" | bc`," >> ./total_time.csv
 
 }
 
