@@ -34,38 +34,44 @@ counter=()
                 ((tries++))
         done
 
-# Record counter
-counterOutput=$(echo "${counter[@]}")
-counterOutputFormated=${counterOutput::-1}
+# # Record counter
+# counterOutput=$(echo "${counter[@]}")
+# counterOutputFormated=${counterOutput::-1}
 
-# Total time connect
-totalConnectOutput=$(echo "${total_connect[@]}")
-totalConnectOutputFormated=${totalConnectOutput::-1}
-echo $totalConnectOutputFormated
+# # Total time connect
+# totalConnectOutput=$(echo "${total_connect[@]}")
+# totalConnectOutputFormated=${totalConnectOutput::-1}
+# echo $totalConnectOutputFormated
 
-# Total start transfer
-totalStartOutput=$(echo "${total_start[@]}")
-totalStartOutputFormated=${totalStartOutput::-1}
-echo $totalStartOutputFormated
+# # Total start transfer
+# totalStartOutput=$(echo "${total_start[@]}")
+# totalStartOutputFormated=${totalStartOutput::-1}
+# echo $totalStartOutputFormated
 
-# Total time
-totalTimeOutput=$(echo "${total_time[@]}")
-totalTimeOutputFormated=${totalTimeOutput::-1}
-echo $totalTimeOutputFormated
+# # Total time
+# totalTimeOutput=$(echo "${total_time[@]}")
+# totalTimeOutputFormated=${totalTimeOutput::-1}
+# echo $totalTimeOutputFormated
 
-curl --location --request POST "$url" --header 'Content-Type: application/json' \
---data-raw "{\"filename\":\"total_connect_${buildNo}.png\", \"plottype\":\"line\", \"x\":[${totalConnectOutputFormated}], \"y\":[${counterOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
+# curl --location --request POST "$url" --header 'Content-Type: application/json' \
+# --data-raw "{\"filename\":\"total_connect_${buildNo}.png\", \"plottype\":\"line\", \"x\":[${totalConnectOutputFormated}], \"y\":[${counterOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
 
-curl --location --request POST "$url" --header 'Content-Type: application/json' \
---data-raw "{\"filename\":\"total_start_transfer_${buildNo}.png\", \"plottype\":\"line\", \"x\":[${totalStartOutputFormated}], \"y\":[${counterOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
+# curl --location --request POST "$url" --header 'Content-Type: application/json' \
+# --data-raw "{\"filename\":\"total_start_transfer_${buildNo}.png\", \"plottype\":\"line\", \"x\":[${totalStartOutputFormated}], \"y\":[${counterOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
 
-curl --location --request POST "$url" --header 'Content-Type: application/json' \
---data-raw "{\"filename\":\"total_time_${buildNo}.png\", \"plottype\":\"line\", \"x\":[${totalTimeOutputFormated}], \"y\":[${counterOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
+# curl --location --request POST "$url" --header 'Content-Type: application/json' \
+# --data-raw "{\"filename\":\"total_time_${buildNo}.png\", \"plottype\":\"line\", \"x\":[${totalTimeOutputFormated}], \"y\":[${counterOutputFormated}], \"ylab\":[\"first line\", \"second line\"]}"
 
-echo "\n"
-echo "https://storage.cloud.google.com/eadesignca1/total_connect_${buildNo}.png"
-echo "https://storage.cloud.google.com/eadesignca1/total_start_transfer_${buildNo}.png"
-echo "https://storage.cloud.google.com/eadesignca1/total_time_${buildNo}.png"
+
+read n
+arr=($(total_connect)) 
+arr=${arr[*]}
+printf "%.3f" $(echo $((${arr// /+}))/$n | bc -l)
+
+# echo "\n"
+# echo "https://storage.cloud.google.com/eadesignca1/total_connect_${buildNo}.png"
+# echo "https://storage.cloud.google.com/eadesignca1/total_start_transfer_${buildNo}.png"
+# echo "https://storage.cloud.google.com/eadesignca1/total_time_${buildNo}.png"
 
 }
 
