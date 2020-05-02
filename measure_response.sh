@@ -23,9 +23,9 @@ echo " Time_Connect Time_startTransfer Time_total ";
                 total_time+=("$3")
                 ((tries--))
         done
-echo "${total_connect[@]}" >> /var/lib/jenkins/workspace/eadesignca/testplot/total_connect.csv
-echo "${total_start[@]}" >> /var/lib/jenkins/workspace/eadesignca/testplot/total_start.csv
-echo "${total_time[@]}" >> /var/lib/jenkins/workspace/eadesignca/testplot/total_time.csv
+echo "${total_connect[@]}" >> /var/lib/jenkins/workspace/eadesignca/total_connect.csv
+echo "${total_start[@]}" >> /var/lib/jenkins/workspace/eadesignca/total_start.csv
+echo "${total_time[@]}" >> /var/lib/jenkins/workspace/eadesignca/total_time.csv
 #echo "average time connect: `echo "scale=10; $total_connect/100" | bc`";
 #echo "average time start: `echo "scale=10; $total_start/100" | bc`";
 #echo "average time taken: `echo "scale=10; $total_time/100" | bc`";
