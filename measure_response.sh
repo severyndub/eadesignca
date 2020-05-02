@@ -4,7 +4,7 @@
 
 main(){
 
-URL="http://104.155.116.131:31916/allthenews?style=plain --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
+#URL="http://104.155.116.131:31916/allthenews?style=plain --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
 # tries=100;
 # total_connect=()
 # total_start=()
@@ -41,11 +41,11 @@ URL="http://104.155.116.131:31916/allthenews?style=plain --insecure -s -o /dev/n
 
 
 #################################################### KEEP old ver #############################################
-# url=$1
+url=$1
 
 
 
-# URL="${url} --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
+URL="${url} --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
 tries=100;
 total_connect=0
 total_start=0
@@ -55,7 +55,6 @@ echo " Time_Connect Time_startTransfer Time_total ";
         while [ $tries -gt 0 ]; do
 
                 result=`curl $URL`
-                echo $result;
                 var=$(echo $result | awk -F":" '{print $1, $2, $3}')
                 set -- $var
 
@@ -70,6 +69,8 @@ echo $total_time
 echo "average time connect: `echo "scale=10; $total_connect/100" | bc`";
 echo "average time start: `echo "scale=10; $total_start/100" | bc`";
 echo "average time taken: `echo "scale=10; $total_time/100" | bc`";
+
+echo "`echo "scale=10; $total_connect/100" | bc`"; ./total_connect_avg.csv
 
 }
 
