@@ -69,6 +69,8 @@ curl --location --request POST "$url" --header 'Content-Type: application/json' 
 
 echo "\n"
 echo "https://storage.cloud.google.com/eadesignca1/total_connect_${fileName}.png"
+echo "https://storage.cloud.google.com/eadesignca1/total_start_transfer_${fileName}.png"
+echo "https://storage.cloud.google.com/eadesignca1/total_time_${fileName}.png"
 
 }
 
