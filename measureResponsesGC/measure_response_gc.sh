@@ -24,8 +24,6 @@ total_connect=()
 total_start=()
 total_time=()
 counter=()
-echo " Time_Connect Time_startTransfer Time_total ";
-
         while [ $tries -lt 100 ]; do
                 result=`curl $URL`
                 var=$(echo $result | awk -F":" '{print $1, $2, $3}')
@@ -36,6 +34,9 @@ echo " Time_Connect Time_startTransfer Time_total ";
                 counter+=("\\\"$tries\\\",")
                 ((tries++))
         done
+
+echo "${#counter[0]}" 
+echo "${#total_connect[0]}" 
 
 counterOutput= echo "${counter[@]}"
 totalConnectOutput= echo "${total_connect[@]}"
