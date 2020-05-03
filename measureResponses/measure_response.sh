@@ -35,9 +35,9 @@ total_time=0
                 ((tries--))
         done
 
-avgTimeConn=$(echo "`echo "scale=10; $total_connect/100" | bc`")
-avgStartTime=$(echo "`echo "scale=10; $total_start/100" | bc`")
-avgTakenTime=$(echo "`echo "scale=10; $total_time/100" | bc`")
+avgTimeConn=$(echo "`echo "scale=4; $total_connect/100" | bc`")
+avgStartTime=$(echo "`echo "scale=4; $total_start/100" | bc`")
+avgTakenTime=$(echo "`echo "scale=4; $total_time/100" | bc`")
 
 # Write resultsto csv files
 echo $avgTimeConn >> ./total_connect.csv
@@ -47,10 +47,9 @@ echo $avgTakenTime >> ./total_time.csv
 #echo "`echo "scale=10; $total_start/100" | bc`," >> ./total_start.csv
 #echo "`echo "scale=10; $total_time/100" | bc`," >> ./total_time.csv
 
-echo $avgTimeConn
-echo $avgStartTime 
-echo $avgTakenTime 
 
+echo $(curl --location --request POST "$url" --header 'Content-Type: application/json' \
+--data-raw "{\"filename\":\"average_responses_${buildNo}.png\", \"plottype\":\"line\", \"x\":[\"averagetimeconn\",\"averagestarttime\",\"averagetakentime\"], \"y\":[${avgTimeConn},${avgStartTime},${avgTakenTime}], \"ylab\":[\"first line\", \"second line\"]}")
 
 curl --location --request POST "$url" --header 'Content-Type: application/json' \
 --data-raw "{\"filename\":\"average_responses_${buildNo}.png\", \"plottype\":\"line\", \"x\":[\"averagetimeconn\",\"averagestarttime\",\"averagetakentime\"], \"y\":[${avgTimeConn},${avgStartTime},${avgTakenTime}], \"ylab\":[\"first line\", \"second line\"]}"
