@@ -40,12 +40,16 @@ avgStartTime=$(echo "`echo "scale=10; $total_start/100" | bc`")
 avgTakenTime=$(echo "`echo "scale=10; $total_time/100" | bc`")
 
 # Write resultsto csv files
-echo avgTimeConn >> ./total_connect.csv
-echo avgStartTime >> ./total_start.csv
-echo avgTakenTime >> ./total_time.csv
+echo $avgTimeConn >> ./total_connect.csv
+echo $avgStartTime >> ./total_start.csv
+echo $avgTakenTime >> ./total_time.csv
 #echo "`echo "scale=10; $total_connect/100" | bc`," >> ./total_connect.csv
 #echo "`echo "scale=10; $total_start/100" | bc`," >> ./total_start.csv
 #echo "`echo "scale=10; $total_time/100" | bc`," >> ./total_time.csv
+
+echo $avgTimeConn
+echo $avgStartTime 
+echo $avgTakenTime 
 
 
 curl --location --request POST "$url" --header 'Content-Type: application/json' \
