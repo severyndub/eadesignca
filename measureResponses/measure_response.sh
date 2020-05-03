@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
-url=$1
-buildNo=$2
+siteUrl=$1
+functionUrl=$2
+buildNo=$3
 
-if [ -z ${url} ]; then
-    echo url must be given
+if [ -z ${siteUrl} ]; then
+    echo siteUrl must be given
+    exit 1
+fi
+
+if [ -z ${functionUrl} ]; then
+    echo functionUrl must be given
     exit 1
 fi
 
@@ -12,12 +18,10 @@ if [ -z ${buildNo} ]; then
     echo buildNo must be given
     exit 1
 fi
+
 main(){
 
-echo $url 
-echo $buildNo
-
-URL="${url} --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
+URL="${siteUrl} --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
 
 tries=100;
 total_connect=0
@@ -52,8 +56,9 @@ echo $avgStartTime
 echo $avgTakenTime 
 
 
-curl --location --request POST "$url" --header 'Content-Type: application/json' \
+curl --location --request POST "$functionUrl" --header 'Content-Type: application/json' \
 --data-raw "{\"filename\":\"average_responses_${buildNo}.png\", \"plottype\":\"line\", \"x\":[\"averagetimeconn\",\"averagestarttime\",\"averagetakentime\"], \"y\":[${avgTimeConn},${avgStartTime},${avgTakenTime}], \"ylab\":[\"first line\", \"second line\"]}"
+                #{"filename":"xname.png",                             "plottype":"line", "x":["averagetimeconn","averagestarttime","averagetakentime"], "y":[".0122", ".0331", ".0332"], "ylab":["first line", "second line"]}
 
 echo "https://storage.cloud.google.com/eadesignca1/average_time_${buildNo}.png"
 
