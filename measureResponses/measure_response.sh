@@ -47,9 +47,10 @@ echo $avgTakenTime >> ./total_time.csv
 #echo "`echo "scale=10; $total_start/100" | bc`," >> ./total_start.csv
 #echo "`echo "scale=10; $total_time/100" | bc`," >> ./total_time.csv
 
+echo $avgTimeConn
+echo $avgStartTime 
+echo $avgTakenTime 
 
-echo $(curl --location --request POST "$url" --header 'Content-Type: application/json' \
---data-raw "{\"filename\":\"average_responses_${buildNo}.png\", \"plottype\":\"line\", \"x\":[\"averagetimeconn\",\"averagestarttime\",\"averagetakentime\"], \"y\":[${avgTimeConn},${avgStartTime},${avgTakenTime}], \"ylab\":[\"first line\", \"second line\"]}")
 
 curl --location --request POST "$url" --header 'Content-Type: application/json' \
 --data-raw "{\"filename\":\"average_responses_${buildNo}.png\", \"plottype\":\"line\", \"x\":[\"averagetimeconn\",\"averagestarttime\",\"averagetakentime\"], \"y\":[${avgTimeConn},${avgStartTime},${avgTakenTime}], \"ylab\":[\"first line\", \"second line\"]}"
