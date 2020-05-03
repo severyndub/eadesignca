@@ -2,6 +2,7 @@
 
     def branch = env.GIT_BRANCH?.trim().split('/').last().toLowerCase()
     def siteUrl = params.SITE_URL?.trim()
+    def buildNo = env.BUILD_ID
 
 node {
 
@@ -12,13 +13,14 @@ node {
         echo """Parameters:
             branch: '${branch}'
             siteUrl: '${siteUrl}'
+            buildNo: '${buildNo}'
             workspace: '${WORKSPACE}'
         """
 
         // Triggers measure_response.sh, takes in site url
         def generateResponses = { url ->
             sh "chmod +x ${WORKSPACE}/measureResponses/measure_response.sh"
-            sh "${WORKSPACE}/measureResponses/measure_response.sh ${url}"
+            sh "${WORKSPACE}/measureResponses/measure_response.sh ${url} ${buildNo}"
         }
 
         stage("Pull Source") {
