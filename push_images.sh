@@ -10,8 +10,8 @@ if [ -z ${tag} ]; then
     echo tag must be given
     exit 1
 fi
-dockerRegName=mcsdevopsentarch
-dockerRegistry=mcsdevopsentarch.azurecr.io
+dockerRegName=mscdevopscaauto
+dockerRegistry=eu.gcr.io/mscdevopscaauto
 retryCount=3
 
 tryPushImage(){
@@ -19,7 +19,6 @@ tryPushImage(){
     tries=${retryCount}
 
     while [ ${tries} -gt 0 ]; do
-        az acr login --name ${dockerRegName}
         echo ${DOCKER} push ${image}
         ${DOCKER} push ${image}
 

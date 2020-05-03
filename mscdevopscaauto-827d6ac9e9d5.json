@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "mscdevopscaauto",
+  "private_key_id": "827d6ac9e9d56616609dc9375d1f13a4c0052a04",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCcZVjlmeUPaj0k\nSW358IV6uP3oY15cV3p+3BsHgl9XgrXQIHmzOgnVpNaoYkDWqnsu93n4x6QqO4Zm\nHu9mxIaR/ULMQL/XR2F/vB9SMAVJDEw2RUcXcfJTGDMO4leR4MUex4C9U7XG4gbx\nEaytLlYPMb7zNMQP86rrRz+IZIn35MiSWK1nUGEn/XBosTBLlksQwdiUMeYJREqV\neJ6iG1aMGeMK9xkvCQEgC1AJnZDUYovcdYTLun+ZKy/JwYcdtXYKbL8/Frm49o30\nT07JIEhCF+gc8+QJKpiJVXhkKwk3jpq2yvdy1RPbp2tlWVJX5roMyaO9czHSTfBR\naHyzGGaXAgMBAAECggEAQMy1Ipy7DcIFB03tZUvE4m5XtbvGUxhjxsBH6rqX6lhc\nIJn0EtCPVpfv4OCk4MzOMU2UmgGOAXmcXB+hLcFryH1Y+ewyEG6g9R3rFFCVQAj6\nYtoddJdfwhIaxaX+hpDM283ph4hxnq/0FFowY6j5O15vMbHBMqLRRJ7GsiqGB9F6\n/slDySmY+OjFTCI2OfH5F7LsuyjNQ9SClu9+SHASqegHzUVEeAN+sq8L5Xq5+r6X\ncto24/2R4N1sevjUjIOrPKjr7o3j4vvLuOFi0z31H4e497V46GcdS4bif7uP4xxd\ntI5bxOWsLT0Cwt/gfbeLoTqlnPqmljAIbj1p2Ag0EQKBgQDYaTP3+QLLztfBqpZZ\n+06H4AARqi/4pKK/ktwIglkc7pspRRuJA8ikdv0HrKub/goRazz3RQgyulPQZxgK\nHM3VyMtVe8ykjBxOO3eiff1aH9FBYAmFry/GuYwICiklVKNiGY8awoR/GHiuxNVK\nd9kHDneRLy7qNaxofQkpgWG52wKBgQC5AZA8WzCBzypp0UkRN2h8Vbt01e5QTXqL\nydsn89dQWuQiAyCwiBiIWMDDOFJx1bfPOLIPP98GzLV+3sZhGovNbkwphwKiqHPp\n9hMNL4GBaxtCo9CWX0JSeZjZJOjys0535zP6OSwy6b/ixclxi3e/izl6Ic7QiC+U\n2ylqov8Y9QKBgQCwZVgZ2NvBmnDdCBoTcDc7o4cK3wjJCBEsTB2TxgOzBH5urkja\nbr4d6Gso1ULwHKrCNgH0n00mZCArL801ePMCPfAXVpigyx/LWMeUKFPZITQksI4y\nbHBp8BXG+9k793hRXvn5WvI60oyUEBa242eAS/eD3MzF1UgZx0kvjqlEnwKBgD0a\n5RbqT5UwZaPZujZzhJE8h9PJLRNc49Lz8uy5Py6NNrh9K/jimqe+GLziB2kN284X\nvcgHopROXMvwrLk52V8axREaRKaQ2Og3nIdIX4/tXm2eSbDA+djfzLo71K0EyDAW\nLzbAV3bheb1e8nAMTpr3Ux6ht/tsX7rcwEs2VudZAoGAcXnJBgkmVX1Q01w45HzE\nQSKmsepr5ZTXzoqR03PeJm5R8mjM7G4RZSPfxG+rMmJ/8D49MkeIWF5JzxnB4GWM\n6QH3Bglq2YTFwawMuM1NXhdVGDWf8MYhmgVBc8kH40JVaXeYTrbn/XMDhMJevxFC\n/qm44s1eO768CrOb8r/k/YU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "eadesignserviceprincipal@mscdevopscaauto.iam.gserviceaccount.com",
+  "client_id": "104460670402114135943",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/eadesignserviceprincipal%40mscdevopscaauto.iam.gserviceaccount.com"
+}

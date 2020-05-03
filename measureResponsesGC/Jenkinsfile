@@ -1,0 +1,47 @@
+#!groovy
+
+    def branch = env.GIT_BRANCH?.trim().split('/').last().toLowerCase()
+    def siteUrl = params.SITE_URL?.trim()
+    def functionUrl = params.GC_FUNCTION_URL?.trim()
+    def buildNo = env.BUILD_ID
+
+node {
+
+    properties([disableConcurrentBuilds()])
+
+    try {
+
+        echo """Parameters:
+            branch: '${branch}'
+            siteUrl: '${siteUrl}'
+            functionUrl: '${functionUrl}'
+            buildNo: '${buildNo}'
+            workspace: '${WORKSPACE}'
+        """
+
+        // Triggers measure_response.sh, takes in site url
+        def generateResponses = { vars ->
+            sh "chmod +x ${WORKSPACE}/measureResponsesGC/measure_response_gc.sh"
+            sh "${WORKSPACE}/measureResponsesGC/measure_response_gc.sh ${vars}"
+        }
+
+        stage("Pull Source") {
+            //trying to get the hash without checkout gets the hash set in previous build.
+            def checkout = checkout scm
+            env.COMMIT_HASH = checkout.GIT_COMMIT
+            echo "Checkout done; Hash: '${env.COMMIT_HASH}'"
+        }
+
+        stage('Generate Responses'){
+            // Call measure_response.sh to genereate response csv files.
+            generateResponses("${siteUrl} ${functionUrl} ${buildNo}")
+        }
+        
+    } catch (e) {
+        throw e
+    } finally {
+        // Recursively delete the current directory from the workspace
+        deleteDir()
+        echo "Build done."
+    }
+}

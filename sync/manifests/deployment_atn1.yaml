@@ -14,7 +14,12 @@ spec:
     spec:
       containers:
         - name: atn
-          image: eu.gcr.io/mscdevopsca/allthenews:v2
+          image: eu.gcr.io/mscdevopscaauto/allthenews1:v1
           args: ["news", "http://nf-service:8888", "weather", "http://wf-service:8888"]
           ports:
-          - containerPort: 8080
+          - containerPort: 8080	  
+        - name: atn-redis
+          image: redis
+          ports:
+          - containerPort: 6379
+

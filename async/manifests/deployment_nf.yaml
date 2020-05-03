@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wf-deployment
+  name: nfa-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wf
+      app: nfa
   template:
     metadata:
       labels:
-        app: wf
+        app: nfa
     spec:
       containers:
-        - name: wf
-          image: eu.gcr.io/mscdevopscaauto/weatherfetcher:v1
+        - name: nfa
+          image: eu.gcr.io/mscdevopscaauto/newsfetcher:v1
