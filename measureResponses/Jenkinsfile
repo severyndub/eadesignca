@@ -20,14 +20,9 @@ node {
         """
 
         // Triggers measure_response.sh, takes in site url
-        def generateResponses = { vars ->
-            echo "${vars}"
-            echo "${1}"
-            echo "${2}"
-            echo "${3}"            
-            
-            //sh "chmod +x ${WORKSPACE}/measureResponses/measure_response.sh"
-            //sh "${WORKSPACE}/measureResponses/measure_response.sh ${url1} ${url2} ${bNo}"
+        def generateResponses = { vars ->          
+            sh "chmod +x ${WORKSPACE}/measureResponses/measure_response.sh"
+            sh "${WORKSPACE}/measureResponses/measure_response.sh ${vars}"
         }
 
         stage("Pull Source") {

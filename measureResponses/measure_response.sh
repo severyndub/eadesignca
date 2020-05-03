@@ -19,11 +19,6 @@ if [ -z ${buildNo} ]; then
     exit 1
 fi
 
-echo "Parameters:"
-echo $siteUrl
-echo $functionUrl
-echo $buildNo
-
 main(){
 
 URL="${siteUrl} --insecure -s -o /dev/null -s -w %{time_connect}:%{time_starttransfer}:%{time_total}"
