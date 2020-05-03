@@ -55,7 +55,7 @@ echo $avgTimeConn
 echo $avgStartTime 
 echo $avgTakenTime 
 
-echo $(--location --request POST "$functionUrl" --header 'Content-Type: application/json' --data-raw "{\"filename\":\"average_responses_${buildNo}.png\", \"plottype\":\"line\", \"x\":[\"averagetimeconn\",\"averagestarttime\",\"averagetakentime\"], \"y\":[${avgTimeConn},${avgStartTime},${avgTakenTime}], \"ylab\":[\"first line\", \"second line\"]}")
+echo $("--location --request POST \"${functionUrl}\" --header 'Content-Type: application/json' --data-raw \"{\"filename\":\"average_responses_${buildNo}.png\", \"plottype\":\"line\", \"x\":[\"averagetimeconn\",\"averagestarttime\",\"averagetakentime\"], \"y\":[${avgTimeConn},${avgStartTime},${avgTakenTime}], \"ylab\":[\"first line\", \"second line\"]}")
 
 #curl --location --request POST "$functionUrl" --header 'Content-Type: application/json' \
 #--data-raw "{\"filename\":\"average_responses_${buildNo}.png\", \"plottype\":\"line\", \"x\":[\"averagetimeconn\",\"averagestarttime\",\"averagetakentime\"], \"y\":[${avgTimeConn},${avgStartTime},${avgTakenTime}], \"ylab\":[\"first line\", \"second line\"]}"
