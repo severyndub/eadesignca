@@ -125,7 +125,7 @@ node {
                 }
 
                 stage("Build SYNC Images") {
-                    dir('sync/allthenews_v1'){
+                    dir('sync/allthenews'){
                         buildDockerImage('allthenews1')
                     }
                 }
