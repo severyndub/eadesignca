@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: nfa
-          image: eu.gcr.io/mscdevopscaauto/newsfetcher:v1
+          image: eu.gcr.io/eadesignca/newsfetcher:v1

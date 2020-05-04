@@ -10,8 +10,8 @@ if [ -z ${tag} ]; then
     echo tag must be given
     exit 1
 fi
-dockerRegName=mscdevopscaauto
-dockerRegistry=eu.gcr.io/mscdevopscaauto
+dockerRegName=eadesignca
+dockerRegistry=eu.gcr.io/eadesignca
 retryCount=3
 
 tryPushImage(){

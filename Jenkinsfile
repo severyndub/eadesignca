@@ -83,7 +83,7 @@ node {
 
         def loginGCDocker = {
             sh "sudo usermod -a -G docker ${USER}"
-            sh "gcloud auth activate-service-account eadesignserviceprincipal@mscdevopscaauto.iam.gserviceaccount.com --key-file=/var/lib/jenkins/secrets/mscdevopscaauto-a0b1d0336d17.json"
+            sh "gcloud auth activate-service-account eadesignca@eadesignca.iam.gserviceaccount.com --key-file=/var/lib/jenkins/secrets/eadesign_service_principal.json"
             sh "gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://eu.gcr.io"
             sh "docker login -u oauth2accesstoken -p \"\$(gcloud auth print-access-token)\" https://eu.gcr.io"
         }
@@ -188,7 +188,7 @@ node {
             if(buildSync){
                 dir('sync/manifests'){
                     // Create sync application deployments and services
-                    sh "gcloud container clusters get-credentials mscdevopsk8s --zone europe-west1-b --project mscdevopscaauto"
+                    sh "gcloud container clusters get-credentials eadesignca --zone europe-west6-c --project eadesignca"
                     sh "kubectl apply -f deployment_nf.yaml"
                     sh "kubectl apply -f deployment_wf.yaml"
                     sh "kubectl apply -f deployment_atn1.yaml"
@@ -217,7 +217,7 @@ node {
             if(buildAsync){
                 dir('async/manifests'){
                     // Create sync application deployments and services
-                    sh "gcloud container clusters get-credentials mscdevopsk8s --zone europe-west1-b --project mscdevopscaauto"
+                    sh "gcloud container clusters get-credentials eadesignca --zone europe-west6-c --project eadesignca"
                     sh "kubectl apply -f deployment_atn2.yaml"
                     sh "kubectl apply -f deployment_nf.yaml"
                     sh "kubectl apply -f deployment_wf.yaml"

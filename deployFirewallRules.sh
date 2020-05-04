@@ -34,7 +34,7 @@ checkRuleExists(){
 
 main(){
         # Set GC project
-        gcloud config set project 'mscdevopscaauto'
+        gcloud config set project 'eadesignca'
 
         checkRuleExists
         #echo $result

@@ -15,4 +15,4 @@ spec:
       containers:
         - name: door3
           args: ["3", "10", "redis-service:6379"]
-          image: eu.gcr.io/mscdevopscaauto/door3:v1
+          image: eu.gcr.io/eadesignca/door3:v1
