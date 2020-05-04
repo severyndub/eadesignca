@@ -70,9 +70,9 @@ curl --location --request POST "$functionUrl" --header 'Content-Type: applicatio
 
 
 echo "\n"
-echo "https://storage.cloud.google.com/eadesignca1/total_connect_${buildNo}.png"
-echo "https://storage.cloud.google.com/eadesignca1/total_start_transfer_${buildNo}.png"
-echo "https://storage.cloud.google.com/eadesignca1/total_time_${buildNo}.png"
+echo "https://storage.cloud.google.com/eadesignca2/total_connect_${buildNo}.png"
+echo "https://storage.cloud.google.com/eadesignca2/total_start_transfer_${buildNo}.png"
+echo "https://storage.cloud.google.com/eadesignca2/total_time_${buildNo}.png"
 
 
 }

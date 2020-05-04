@@ -59,7 +59,7 @@ curl --location --request POST "${functionUrl}" --header 'Content-Type: applicat
 --data-raw "{\"filename\":\"average_responses_${buildNo}.png\", \"plottype\":\"line\", \"x\":[\"averagetimeconn\",\"averagestarttime\",\"averagetakentime\"], \"y\":[\"${avgTimeConn}\",\"${avgStartTime}\",\"${avgTakenTime}\"], \"ylab\":[\"first line\", \"second line\"]}"
 
 echo "\n"
-echo "https://storage.cloud.google.com/eadesignca1/average_responses_${buildNo}.png"
+echo "https://storage.cloud.google.com/eadesignca2/average_responses_${buildNo}.png"
 
 }
 
