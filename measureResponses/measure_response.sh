@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Script sourced from intyernet source: https://www.hungred.com/useful-information/average-website-response-time-bash-script/
 
 siteUrl=$1
 functionUrl=$2
